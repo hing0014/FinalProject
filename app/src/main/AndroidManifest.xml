@@ -9,7 +9,7 @@
 
     <application
         android:allowBackup="true"
-        android:fullBackupContent="@xml"
+        android:fullBackupContent="true"
         android:icon="@mipmap/custom"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/custom"
