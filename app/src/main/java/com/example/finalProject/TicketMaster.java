@@ -31,7 +31,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-public class TicketMaster extends AppCompatActivity {
+public class TicketMaster extends AppCompatActivity
+{
     private ProgressBar theBar;
     String city;
 
