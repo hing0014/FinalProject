@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.example.androidlabs.R;
+import com.example.finalProject.R;
 import java.util.ArrayList;
 
 public class Covid extends AppCompatActivity {

@@ -4,6 +4,7 @@
     <string name="AudioNavButton">Audio Database</string>
     <string name="RecipeNavButton">Recipe</string>
     <string name="TicketMasterNavButton">TicketMaster</string>
+    <string name="city_search">City Search</string>
     <string-array name="navItems">
         <item>Home</item>
         <item>Covid-19</item>
@@ -11,5 +12,6 @@
         <item>Recipe</item>
         <item>TicketMaster</item>
     </string-array>
+    <string name="SearchButtonText">Search</string>
 
 </resources>

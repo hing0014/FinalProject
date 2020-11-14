@@ -5,5 +5,7 @@
     <string name="AudioNavButton">Audio Database</string>
     <string name="RecipeNavButton">Recipe</string>
     <string name="TicketMasterNavButton">TicketMaster</string>
-    <string name="EmptyNavButton">EmptyNavButton</string>
+    <string name="city_search" >City Search</string>
+    <string name="SearchButtonText">Search</string>
+    <string name="HomeNavButton">Home</string>
 </resources>
