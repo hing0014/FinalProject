@@ -10,4 +10,5 @@
     <string name="HomeNavButton">Home</string>
     <string name="radius_search">Radius</string>
     <string name="event_name">Event Name</string>
+    <string name="eventIcon">Event Icon</string>
 </resources>
