@@ -13,5 +13,8 @@
         <item>TicketMaster</item>
     </string-array>
     <string name="SearchButtonText">Search</string>
+    <string name="radius_search">Radius</string>
+    <string name="HomeNavButton">Hone</string>
+    <string name="event_name">Event Name</string>
 
 </resources>
