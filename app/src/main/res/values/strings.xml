@@ -16,5 +16,6 @@
     <string name="radius_search">Radius</string>
     <string name="HomeNavButton">Hone</string>
     <string name="event_name">Event Name</string>
+    <string name="eventIcon">Event Icon</string>
 
 </resources>

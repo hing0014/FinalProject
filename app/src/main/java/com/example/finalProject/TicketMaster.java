@@ -34,9 +34,21 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-
+/**
+ * Links between the XML and ticketmaster database.
+ *  <p>
+ * Course Name: CST8288_010
+ * Class name: TicketMaster
+ * Date: November 19, 2020
+ *
+ * @version 1.0
+ * @author Chris HIng
+ */
 public class TicketMaster extends AppCompatActivity
 {
+    /**
+     * Fields for storing the database information for use throughout the class.
+     */
     private ArrayList<TicketEvent> events;
     private TicketMasterListAdapter myAdapter;
     private ProgressBar theBar;
@@ -44,6 +56,14 @@ public class TicketMaster extends AppCompatActivity
     String radius;
     SQLiteDatabase dataBase;
 
+    /**
+     * Creates and manages the click listeners of the button.
+     * <p>
+     * When the search button is clicked the editText fields stored data is passed to the TicketMasterQuery in the form of the data source URL.
+     * That information is then displayed on screen.
+     *
+     * @param savedInstanceState Bundle object used in the super call of onCreate.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -81,11 +101,30 @@ public class TicketMaster extends AppCompatActivity
             myAdapter.notifyDataSetChanged();
         });
     }
+
+    /**
+     * Handles the link to the data and creation fo the database.
+     *  <p>
+     * Course Name: CST8288_010
+     * Class name: TicketMasterQuery
+     * Date: November 19, 2020
+     *
+     * @version 1.0
+     * @author Chris HIng
+     */
     private class TicketMasterQuery extends AsyncTask<String, Integer, String>
     {
         String city;
 
-        //Type 1
+        /**
+         * Gathers the TicketMaster data and builds the database.
+         * <p>
+         * Connects to the passed in URL.
+         * Converts websites JSON file to a string.
+         * Extracts the required information out of the string and into and array of TicketEvent objects.
+         *
+         * @param debates An array of Strings, the first string being the TicketMaster URL, and the second being the city name.
+         */
         @Override
         protected String doInBackground(String... debates)
         {
@@ -145,20 +184,33 @@ public class TicketMaster extends AppCompatActivity
             return "Done";
         }
 
-        //Type 2
+        /**
+         * Gathers the TicketMaster data and builds the database.
+         * <p>
+         * Connects to the passed in URL.
+         * Converts websites JSON file to a string.
+         * Extracts the required information out of the string and into and array of TicketEvent objects.
+         *
+         * @param value An array of Integers used to store in the log and update the on screen progress bar.
+         */
         public void onProgressUpdate(Integer...value)
         {
             theBar.setProgress(value[0]);
             Log.i("Progress", "Progress is :" + value[0] + "%");
         }
-        //Type3
-        @SuppressLint("SetTextI18n")
-        public void onPostExecute(String fromDoInBackground)
-        {
 
-        }
     }
 
+    /**
+     * Adds the rows to the screen.
+     *  <p>
+     * Course Name: CST8288_010
+     * Class name: TicketMasterListAdapter
+     * Date: November 19, 2020
+     *
+     * @version 1.0
+     * @author Chris HIng
+     */
     private class TicketMasterListAdapter extends BaseAdapter
     {
 
@@ -182,11 +234,8 @@ public class TicketMaster extends AppCompatActivity
 
     private void loadDataFromDatabase()
     {
-        //get a database connection:
         TicketMasterOpener dbOpener = new TicketMasterOpener(this);
-        dataBase = dbOpener.getWritableDatabase(); //This calls onCreate() if you've never built the table before, or onUpgrade if the version here is newer
-        // We want to get all of the columns. Look at MyOpener.java for the definitions:
-
+        dataBase = dbOpener.getWritableDatabase();
         String [] columns = {
                 TicketMasterOpener.COL_ID,
                 TicketMasterOpener.COL_CITY,
@@ -195,10 +244,7 @@ public class TicketMaster extends AppCompatActivity
                 TicketMasterOpener.COL_MIN_PRICE,
                 TicketMasterOpener.COL_MAX_PRICE,
                 TicketMasterOpener.COL_URL};
-        //query all the results from the database:
         Cursor results = dataBase.query(false, TicketMasterOpener.TABLE_NAME, columns, null, null, null, null, null, null);
-        //Now the results object has rows of results that match the query.
-        //find the column indices:
         int cityColumnIndex = results.getColumnIndex(TicketMasterOpener.COL_CITY);
         int eventNameColIndex = results.getColumnIndex(TicketMasterOpener.COL_EVENT_NAME);
         int startDateColIndex = results.getColumnIndex(TicketMasterOpener.COL_START_DATE);
@@ -206,8 +252,6 @@ public class TicketMaster extends AppCompatActivity
         int maxPriceColIndex = results.getColumnIndex(TicketMasterOpener.COL_MAX_PRICE);
         int urlColIndex = results.getColumnIndex(TicketMasterOpener.COL_URL);
         int idColIndex = results.getColumnIndex(TicketMasterOpener.COL_ID);
-
-        //iterate over the results, return true if there is a next item:
         while(results.moveToNext())
         {
             String city = results.getString(cityColumnIndex);
@@ -217,8 +261,6 @@ public class TicketMaster extends AppCompatActivity
             double maxPrice = Double.parseDouble(results.getString(maxPriceColIndex));
             String url = results.getString(urlColIndex);
             long id = results.getLong(idColIndex);
-
-            //add the new Contact to the array list:
             events.add(new TicketEvent(city, eventName, startDate, minPrice, maxPrice, url, id));
         }
     }
