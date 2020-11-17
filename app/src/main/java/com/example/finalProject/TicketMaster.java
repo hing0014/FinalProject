@@ -3,8 +3,11 @@ package com.example.finalProject;
 import android.annotation.SuppressLint;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +31,9 @@ import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -116,6 +122,10 @@ public class TicketMaster extends AppCompatActivity
     {
         String city;
 
+        /*
+         * Real Red (Mar 3 '09 at 9:37). Get file name from URL [Webpage]. Retrieved from
+         * https://stackoverflow.com/questions/605696/get-file-name-from-url
+         */
         /**
          * Gathers the TicketMaster data and builds the database.
          * <p>
@@ -128,6 +138,7 @@ public class TicketMaster extends AppCompatActivity
         @Override
         protected String doInBackground(String... debates)
         {
+            Bitmap image = null;
             city = debates[1];
             try
             {
@@ -161,6 +172,43 @@ public class TicketMaster extends AppCompatActivity
 
                     String eventUrl = jsonEvent.getString("url");
 
+                    String imageURLString = "";
+                    JSONArray jsonImages = jsonEvent.getJSONArray("images");
+                    for(int ii = 0; ii < jsonImages.length(); ii++)
+                    {
+                        JSONObject jasonImageDetails = jsonImages.getJSONObject(ii);
+
+                        if(jasonImageDetails.getString("ratio").equals("4_3"))
+                        {
+                            imageURLString = jasonImageDetails.getString("url");
+                            break;
+                        }
+                    }
+
+                    if(!(imageURLString.equals("")))
+                    {
+                        URL imageUrlObject = new URL(imageURLString);
+                        HttpURLConnection connection = (HttpURLConnection) imageUrlObject.openConnection();
+                        connection.connect();
+                        int responseCode = connection.getResponseCode();
+                        if (responseCode == 200)
+                        {
+                            image = BitmapFactory.decodeStream(connection.getInputStream());
+                        }
+
+                        String imageName = imageURLString.substring( imageURLString.lastIndexOf('/')+1);
+
+                        FileOutputStream outputStream = openFileOutput( imageName, Context.MODE_PRIVATE);
+
+                        image.compress(Bitmap.CompressFormat.PNG, 80, outputStream);
+                        outputStream.flush();
+                        outputStream.close();
+                        FileInputStream fis = null;
+                        try {    fis = openFileInput(String.valueOf(image));   }
+                        catch (FileNotFoundException e) {    e.printStackTrace();  }
+                        Bitmap bm = BitmapFactory.decodeStream(fis);
+                    }
+
                     ContentValues newRowValues = new ContentValues();
                     newRowValues.put(TicketMasterOpener.COL_CITY, city);
                     newRowValues.put(TicketMasterOpener.COL_EVENT_NAME, eventName);
@@ -171,7 +219,7 @@ public class TicketMaster extends AppCompatActivity
 
                     long newId = dataBase.insert(TicketMasterOpener.TABLE_NAME, null, newRowValues);
 
-                    events.add(new TicketEvent(city, eventName, startDate, ticketPriceMin, ticketPriceMax, eventUrl, newId));
+                    events.add(new TicketEvent(city, eventName, startDate, ticketPriceMin, ticketPriceMax, eventUrl, image, newId));
                     Log.i("Event Created", "Event name: " + eventName);
                     publishProgress(i/eventArrayLength*100);
                 }
@@ -225,8 +273,12 @@ public class TicketMaster extends AppCompatActivity
             TicketEvent arEl = events.get(position);
             LayoutInflater inflater = getLayoutInflater();
             if(view == null) view = inflater.inflate(R.layout.row_ticket_master_event, parent, false);
+
             TextView messageText = view.findViewById(R.id.eventRowName);
             messageText.setText(arEl.getEventName());
+
+            ImageView gotImage = view.findViewById(R.id.eventImage);
+            gotImage.setImageBitmap(arEl.getImage());
 
             return view;
         }
@@ -274,8 +326,14 @@ public class TicketMaster extends AppCompatActivity
         double ticketPriceMax;
         String url;
         long index;
+        Bitmap image;
 
         private TicketEvent(String city, String eventName, String startDate, double ticketPriceMin, double ticketPriceMax, String url, long index)
+        {
+            this(city, eventName, startDate, ticketPriceMin, ticketPriceMax, url, null, index);
+        }
+
+        private TicketEvent(String city, String eventName, String startDate, double ticketPriceMin, double ticketPriceMax, String url, Bitmap image, long index)
         {
             this.city = city;
             this.eventName = eventName;
@@ -284,7 +342,7 @@ public class TicketMaster extends AppCompatActivity
             this.ticketPriceMax = ticketPriceMax;
             this.url = url;
             this.index = index;
-
+            this.image = image;
         }
 
         public String getCity()
@@ -299,6 +357,7 @@ public class TicketMaster extends AppCompatActivity
         public double getTicketPriceMin(){ return ticketPriceMin; }
         public double getTicketPriceMax(){ return ticketPriceMax; }
         public String getUrl(){ return url; }
+        public Bitmap getImage() {return image;}
         public long getId() { return index; }
     }
 }
