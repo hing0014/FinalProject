@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <include layout="@layout/activity_navigation"/>
 
     <Button
         android:id="@+id/covid"

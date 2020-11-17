@@ -10,11 +10,6 @@
         android:id="@+id/layout"
         tools:ignore="UseSwitchCompatOrMaterialXml">
 
-        <include layout="@layout/activity_navigation"
-            android:id="@+id/header"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_alignParentStart="true"/>
 
         <EditText
             android:layout_width="wrap_content"
