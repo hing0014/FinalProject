@@ -13,5 +13,9 @@
         <item>TicketMaster</item>
     </string-array>
     <string name="SearchButtonText">Search</string>
+    <string name="searchRecipesEdit">Search Recipes…</string>
+    <string name="recipeIconDesc">Icon of a recipe</string>
+    <string name="favouriteButton">Favourite</string>
+    <string name="recipeRowText">Recipe Name</string>
 
 </resources>
