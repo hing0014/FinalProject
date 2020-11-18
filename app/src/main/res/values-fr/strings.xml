@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ProjetFinal</string>
+    <string name="CovidNavButton">Covid-19</string>
+    <string name="AudioNavButton">Audio Database</string>
+    <string name="RecipeNavButton">Recipe</string>
+    <string name="TicketMasterNavButton">TicketMaster</string>
+    <string name="city_search" >City Search</string>
+    <string name="SearchButtonText">Search</string>
+    <string name="searchRecipesEdit"></string>
+    <string name="recipeIconDesc"></string>
+    <string name="favouriteButton"></string>
+    <string name="recipeRowText"></string>
+    <string name="HomeNavButton">Home</string>
+    <string name="radius_search">Radius</string>
+    <string name="event_name">Event Name</string>
+    <string name="eventIcon">Event Icon</string>
 </resources>

@@ -4,6 +4,7 @@
     <string name="AudioNavButton">Audio Database</string>
     <string name="RecipeNavButton">Recipe</string>
     <string name="TicketMasterNavButton">TicketMaster</string>
+    <string name="city_search">City Search</string>
     <string-array name="navItems">
         <item>Home</item>
         <item>Covid-19</item>
@@ -17,5 +18,14 @@
     <string name="province">Province:</string>
     <string name="cases">Cases:</string>
     <string name="status">Status:</string>
+    <string name="SearchButtonText">Search</string>
+    <string name="searchRecipesEdit">Search Recipes…</string>
+    <string name="recipeIconDesc">Icon of a recipe</string>
+    <string name="favouriteButton">Favourite</string>
+    <string name="recipeRowText">Recipe Name</string>
+    <string name="radius_search">Radius</string>
+    <string name="HomeNavButton">Hone</string>
+    <string name="event_name">Event Name</string>
+    <string name="eventIcon">Event Icon</string>
 
 </resources>

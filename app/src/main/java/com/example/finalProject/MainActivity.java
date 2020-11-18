@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
-import com.example.androidlabs.R;
+import com.example.finalProject.R;
 
 public class MainActivity extends AppCompatActivity {
 
