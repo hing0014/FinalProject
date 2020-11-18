@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/recipeIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/recipeIconDesc"
+        android:src="@drawable/recipe_icon"
+        android:layout_column="0"
+        android:layout_row="0"/>
+
+    <TextView
+        android:layout_width="266dp"
+        android:layout_height="40dp"
+        android:layout_row="0"
+        android:layout_column="1"
+        android:text="@string/recipeRowText"
+        android:id="@+id/recipeTextRow"
+        android:textSize="20dp"
+        />
+
+    <!--<Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="0"
+        android:layout_column="2"
+        android:text="@string/favouriteButton"
+        android:id="@+id/favouriteButton"/>-->
+
+</GridLayout>

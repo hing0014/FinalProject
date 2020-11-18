@@ -13,6 +13,10 @@
         <item>TicketMaster</item>
     </string-array>
     <string name="SearchButtonText">Search</string>
+    <string name="searchRecipesEdit">Search Recipes…</string>
+    <string name="recipeIconDesc">Icon of a recipe</string>
+    <string name="favouriteButton">Favourite</string>
+    <string name="recipeRowText">Recipe Name</string>
     <string name="radius_search">Radius</string>
     <string name="HomeNavButton">Hone</string>
     <string name="event_name">Event Name</string>
