@@ -14,44 +14,40 @@
 
 
 <TextView
-    android:id="@+id/countryResult"
+    android:id="@+id/country"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_below="@id/imageButton"
     android:hint="@string/country" />
 
 <TextView
-    android:id="@+id/countryCodeResult"
+    android:id="@+id/conCode"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_below="@id/countryResult"
-    android:layout_toRightOf="@id/countryCodeResult"
+    android:layout_below="@id/country"
     android:hint="@string/conCode" />
 
 <TextView
-    android:id="@+id/provinceResult"
+    android:id="@+id/province"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_below="@id/countryCodeResult"
-    android:layout_toRightOf="@id/provinceResult"
+    android:layout_below="@id/conCode"
     android:hint="@string/province" />
 
 
 <TextView
-    android:id="@+id/caseResult"
+    android:id="@+id/cases"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_below="@id/provinceResult"
-    android:layout_toRightOf="@id/caseResult"
+    android:layout_below="@id/province"
     android:hint="@string/cases" />
 
 
 <TextView
-    android:id="@+id/statusResult"
+    android:id="@+id/status"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_below="@id/caseResult"
-    android:layout_toRightOf="@id/statusResult"
+    android:layout_below="@id/cases"
     android:hint="@string/status" />
 
 

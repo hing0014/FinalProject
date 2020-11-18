@@ -29,22 +29,24 @@
         EditText searchText;
         TextView countryDisp, countryCodeDisp, provinceDisp, casesDisp, statusDisp;
         ProgressBar progressBar;
+        String country,countryCode, province, status;
+        double cases;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_covid);
 
-            ListView myList = findViewById(R.id.listView);
+            ListView myList = (ListView) findViewById(R.id.listView);
             myAdapter = new MyListAdapter();
             myList.setAdapter(myAdapter);
 
-            countryDisp= findViewById(R.id.countryResult);
-            countryCodeDisp= findViewById(R.id.countryCodeResult);
-            provinceDisp= findViewById(R.id.provinceResult);
-            casesDisp= findViewById(R.id.caseResult);
-            statusDisp= findViewById(R.id.statusResult);
-            progressBar=  findViewById(R.id.progressBar);
+            countryDisp = findViewById(R.id.country);
+            countryCodeDisp = findViewById(R.id.conCode);
+            provinceDisp = findViewById(R.id.province);
+            casesDisp = findViewById(R.id.cases);
+            statusDisp = findViewById(R.id.status);
+            progressBar =  findViewById(R.id.progressBar);
 
             searchText = findViewById(R.id.searchText);
             searchButton = findViewById(R.id.magnify);
@@ -82,19 +84,21 @@
 
                     //set what the text should be for this row:
                     TextView tView = newView.findViewById(R.id.searchText);
+                    notifyDataSetChanged();
                     tView.setText(getItem(position));
                     //return it to be put in the table
                     return newView;
                 }
             }
                                                //Type1     Type2   Type3
-private class CovidRequest extends AsyncTask< String, Integer, String> {
+ class CovidRequest extends AsyncTask< String, Integer, String> {
+
     @Override
     public String doInBackground(String... args) {
-
+         String corona = "";
            try {
             //create a URL object of what server to contact:
-           URL url = new URL(args[0]);
+           URL url = new URL(corona);
 
            //open the connection
            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -111,6 +115,7 @@ private class CovidRequest extends AsyncTask< String, Integer, String> {
            while ((line = reader.readLine()) != null) {
                sb.append(line + "\n");
            }
+
            String result = sb.toString(); //result is the whole string
 
           // convert string to JSONArray: Look at slide 27:
@@ -120,28 +125,27 @@ private class CovidRequest extends AsyncTask< String, Integer, String> {
 
                JSONObject covidObject = jArray.getJSONObject(i);
 
-               // Pulling items from the array
-               String country = covidObject.getString("Country");
-               String countryCode = covidObject.getString("CountryCode");
-               String province = covidObject.getString("Province");
-               Double cases = covidObject.getDouble("Cases");
-               String status = covidObject.getString("Status");
+                // Pulling items from the array
+                country = covidObject.getString("Country");
+                countryCode = covidObject.getString("CountryCode");
+                province = covidObject.getString("Province");
+                cases = covidObject.getDouble("Cases");
+                status = covidObject.getString("Status");
+                //get the double associated with "value"
+                 countryDisp.setText(country);
+//               countryCodeDisp.setText(countryCode);
+//               provinceDisp.setText(province);
+//               casesDisp.setText(String.valueOf(cases));
+//               statusDisp.setText(status);
+           }
 
-               //get the double associated with "value"
-               countryDisp.setText((R.string.country) + country);
-               countryCodeDisp.setText("R.string.conCode"+ countryCode);
-               provinceDisp.setText("R.string.province"+ province);
-               casesDisp.setText("R.string.cases"+ cases.toString());
-               statusDisp.setText("R.string.status"+ status);
-
-              }
         } catch (Exception e) {
             e.printStackTrace();
        }
-      return "";
+      return corona;
     }
 
-    //Type 2
+    @Override //Type 2
     public void onProgressUpdate(Integer... args) {
 
         progressBar.setVisibility(View.VISIBLE);
@@ -149,11 +153,16 @@ private class CovidRequest extends AsyncTask< String, Integer, String> {
     }
 
     //Type3
-    public void onPostExecute(String fromDoInBackground) {
-        progressBar.setVisibility(View.VISIBLE);
-    }
-    }
-    }
+    protected void onPostExecute(String fromDoInBackground) {
+          countryDisp.setText(country);
+//        countryCodeDisp.setText(countryCode);
+//        provinceDisp.setText(province);
+//        casesDisp.setText(String.valueOf(cases));
+//        statusDisp.setText(status);
+//        progressBar.setVisibility(View.VISIBLE);
+     }
+  }
+ }
 
 
 
