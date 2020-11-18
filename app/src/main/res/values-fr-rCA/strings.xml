@@ -5,6 +5,13 @@
     <string name="AudioNavButton">Base de données audio</string>
     <string name="RecipeNavButton">Recette</string>
     <string name="TicketMasterNavButton">TicketMaster</string>
+    <string name="EmptyNavButton">Bouton de navigation vide</string>
+    <string name="searchText">La recherche..</string>
+    <string name="country">Les pays:</string>
+    <string name="conCode">Le code du pays:</string>
+    <string name="province">La province:</string>
+    <string name="cases">Le cas:</string>
+    <string name="status">Le statut:</string>
     <string name="city_search" >Recherche par ville</string>
     <string name="SearchButtonText">Chercher</string>
     <string name="HomeNavButton">Accueil</string>

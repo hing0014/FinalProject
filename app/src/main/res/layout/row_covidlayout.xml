@@ -1,9 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="top"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
 
-</LinearLayout>
+    <ImageButton
+    android:id="@+id/imageButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentStart="true"
+    app:srcCompat="@drawable/flag" />
+
+<TextView
+    android:id="@+id/country"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/imageButton"
+    android:text="@string/country"/>
+
+<TextView
+    android:id="@+id/countryResult"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_toRightOf="@id/country"
+    android:layout_below="@id/imageButton"
+    android:hint="@string/country" />
+
+<TextView
+    android:id="@+id/countryCode"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/country"
+    android:text="@string/conCode" />
+
+<TextView
+    android:id="@+id/countrycodeResult"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/country"
+    android:layout_toRightOf="@id/countryCode"
+    android:hint="@string/conCode" />
+
+<TextView
+    android:id="@+id/province"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/countryCode"
+    android:text="@string/province" />
+
+<TextView
+    android:id="@+id/provinceResult"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/countryCode"
+    android:layout_toRightOf="@id/province"
+    android:hint="@string/province" />
+
+<TextView
+    android:id="@+id/cases"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/province"
+    android:text="@string/cases" />
+
+<TextView
+    android:id="@+id/caseResult"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/province"
+    android:layout_toRightOf="@id/cases"
+    android:hint="@string/cases" />
+
+<TextView
+    android:id="@+id/status"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/cases"
+    android:text="@string/status" />
+
+<TextView
+    android:id="@+id/statusResult"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/cases"
+    android:layout_toRightOf="@id/status"
+    android:hint="@string/status" />
+
+
+</RelativeLayout>
