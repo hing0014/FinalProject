@@ -18,4 +18,10 @@
     <string name="radius_search">Rayon</string>
     <string name="event_name">Nom de l\'événement</string>
     <string name="eventIcon">" Icône d'événement"</string>
+    <string name="searchText">La recherche..</string>
+    <string name="country">Les pays:</string>
+    <string name="conCode">Le code du pays:</string>
+    <string name="province">La province:</string>
+    <string name="cases">Le cas:</string>
+    <string name="status">Le statut:</string>
 </resources>
