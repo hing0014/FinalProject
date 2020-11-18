@@ -20,5 +20,10 @@ public class MainActivity extends AppCompatActivity {
         { Intent covidActivity = new Intent(MainActivity.this, Covid.class);
           startActivity(covidActivity); });
 
+        Button ticketMaster = (Button) findViewById(R.id.ticketMaster);
+        ticketMaster.setOnClickListener( (clicker) ->
+        { Intent ticketMasterActivity = new Intent(MainActivity.this, TicketMaster.class);
+            startActivity(ticketMasterActivity); });
     }
+
 }
