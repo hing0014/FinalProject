@@ -11,37 +11,46 @@
         android:id="@+id/layout"
         tools:ignore="UseSwitchCompatOrMaterialXml">
 
+        <TextView
+            android:id="@+id/cSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="@string/city_search" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_toStartOf="@+id/searchButton"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:text="@string/city_search"
+            android:layout_below="@+id/cSearch"
             android:id="@+id/citySearch"
             android:textSize="30sp"
-            android:autofillHints="Enter City"
+            android:autofillHints="@string/city_search"
             android:inputType="text"
             tools:ignore="LabelFor" />
 
+        <TextView
+            android:id="@+id/rSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_below="@id/citySearch"
+            android:text="@string/radius_search" />
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_below="@id/citySearch"
+            android:layout_below="@id/rSearch"
             android:layout_toStartOf="@+id/searchButton"
             android:layout_alignParentStart="true"
-            android:text="@string/radius_search"
             android:id="@+id/radius"
             android:textSize="30sp"
-            android:autofillHints="Enter Radius"
+            android:autofillHints="@string/radius_search"
             android:inputType="text"
             tools:ignore="LabelFor" />
 
         <Button
             android:id="@+id/searchButton"
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_height="140dp"
             android:layout_alignParentTop="true"
             android:text="@string/SearchButtonText"
             android:layout_alignParentEnd="true"

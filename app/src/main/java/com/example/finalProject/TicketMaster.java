@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -58,12 +59,31 @@ public class TicketMaster extends AppCompatActivity
     /**
      * Fields for storing the database information for use throughout the class.
      */
-    private ArrayList<TicketEvent> events;
+    private ArrayList<TicketEvent> events = new ArrayList<>();
     private TicketMasterListAdapter myAdapter;
     private ProgressBar theBar;
     String city;
+    String eventName;
+    String startDate;
+    double ticketPriceMin;
+    double ticketPriceMax;
+    String eventUrl;
+    String imageName;
     String radius;
+    String imageString;
+    int eventArrayLength;
+    Bitmap image;
     SQLiteDatabase dataBase;
+
+    public final static String ITEM_CITY = "CITY";
+    public final static String ITEM_NAME = "EVENT NAME";
+    public final static String ITEM_START_DATE = "START DATE";
+    public final static String ITEM_MIN_PRICE = "MIN PRICE";
+    public final static String ITEM_MAX_PRICE = "MAX PRICE";
+    public final static String ITEM_URL = "URL";
+    public final static String ITEM_IMAGE_STRING = "IMAGE";
+    public final static String ITEM_ID = "_id";
+
 
     /**
      * Creates and manages the click listeners of the button.
@@ -82,16 +102,17 @@ public class TicketMaster extends AppCompatActivity
         theBar.setVisibility(View.VISIBLE);
 
         ListView myList = findViewById(R.id.theListView);
+        loadDataFromDatabase();
         myList.setAdapter(myAdapter = new TicketMasterListAdapter());
 
         Button searchButton = findViewById(R.id.searchButton);
         TicketMasterQuery tickQuer = new TicketMasterQuery();
         searchButton.setOnClickListener(click ->
         {
-            EditText cityText = findViewById(R.id.citySearch);
-            city = cityText.toString();
-            EditText radiusText = findViewById(R.id.radius);
-            radius = radiusText.toString();
+            EditText cityText = (EditText) findViewById(R.id.citySearch);
+            city = cityText.getText().toString();
+            EditText radiusText = (EditText) findViewById(R.id.radius);
+            radius = radiusText.getText().toString();
             boolean isInt = true;
             try {
                 int num = Integer.parseInt(radius);
@@ -100,14 +121,26 @@ public class TicketMaster extends AppCompatActivity
             }
             if(isInt)
             {
-                if(URLUtil.isValidUrl("https://app.ticketmaster.com/discovery/v2/events.json?apikey=9xSSOAi25vaqiTP1UGfMa1fxycNnJPpd&city=" + city + "&radius=" + radius))
-                {
-                    tickQuer.execute("https://app.ticketmaster.com/discovery/v2/events.json?apikey=9xSSOAi25vaqiTP1UGfMa1fxycNnJPpd&city=" + city + "&radius=" + radius, city);
-                }
-                else Toast.makeText(getApplicationContext(),"INVALID CITY: city not found", Toast.LENGTH_SHORT).show();
+                tickQuer.execute("https://app.ticketmaster.com/discovery/v2/events.json?apikey=9xSSOAi25vaqiTP1UGfMa1fxycNnJPpd&city=" + city + "&radius=" + radius, city);
             }
             else Toast.makeText(getApplicationContext(),"INVALID RADIUS: please enter a whole number", Toast.LENGTH_SHORT).show();
-            myAdapter.notifyDataSetChanged();
+        });
+
+        myList.setOnItemClickListener( (parent, view, pos, id) -> {
+
+            Bundle dataToPass = new Bundle();
+            TicketEvent temp = events.get(pos);
+            dataToPass.putString(ITEM_CITY, temp.getCity() );
+            dataToPass.putString(ITEM_NAME, temp.getEventName() );
+            dataToPass.putString(ITEM_START_DATE, temp.getStartDate() );
+            dataToPass.putDouble(ITEM_MIN_PRICE, temp.getTicketPriceMin() );
+            dataToPass.putDouble(ITEM_MAX_PRICE, temp.getTicketPriceMax() );
+            dataToPass.putString(ITEM_URL, temp.getUrl() );
+            dataToPass.putString(ITEM_IMAGE_STRING, encodeTobase64(temp.getImage()));
+
+            Intent nextActivity = new Intent(TicketMaster.this, TicketDetails.class);
+            nextActivity.putExtras(dataToPass); //send data to next activity
+            startActivity(nextActivity); //make the transition
         });
     }
 
@@ -141,7 +174,7 @@ public class TicketMaster extends AppCompatActivity
         @Override
         protected String doInBackground(String... debates)
         {
-            Bitmap image = null;
+            image = null;
             city = debates[1];
             try
             {
@@ -159,21 +192,22 @@ public class TicketMaster extends AppCompatActivity
                 JSONObject jObject = new JSONObject(result);
                 JSONObject jObjEmbed = jObject.getJSONObject("_embedded");
                 JSONArray jsonEventArray = jObjEmbed.getJSONArray("events");
-                int eventArrayLength = jsonEventArray.length();
+                eventArrayLength = jsonEventArray.length();
                 for(int i = 0; i < eventArrayLength; i++)
                 {
                     JSONObject jsonEvent = jsonEventArray.getJSONObject(i);
-                    String eventName= jsonEvent.getString("name");
+                    eventName= jsonEvent.getString("name");
 
                     JSONObject jsonEventDates = jsonEvent.getJSONObject("dates");
                     JSONObject jsonEventStart = jsonEventDates.getJSONObject("start");
-                    String startDate = jsonEventStart.getString("localDate");
+                    startDate = jsonEventStart.getString("localDate");
 
-                    JSONObject jsonEventPriceRanges = jsonEvent.getJSONObject("priceRanges");
-                    double ticketPriceMin = jsonEventPriceRanges.getDouble("min");
-                    double ticketPriceMax = jsonEventPriceRanges.getDouble("max");
+                    JSONArray jsonEventPriceRanges = jsonEvent.getJSONArray("priceRanges");
+                    JSONObject jsonPricees = jsonEventPriceRanges.getJSONObject(0);
+                    ticketPriceMin = jsonPricees.getDouble("min");
+                    ticketPriceMax = jsonPricees.getDouble("max");
 
-                    String eventUrl = jsonEvent.getString("url");
+                    eventUrl = jsonEvent.getString("url");
 
                     String imageURLString = "";
                     JSONArray jsonImages = jsonEvent.getJSONArray("images");
@@ -199,7 +233,7 @@ public class TicketMaster extends AppCompatActivity
                             image = BitmapFactory.decodeStream(connection.getInputStream());
                         }
 
-                        String imageName = imageURLString.substring( imageURLString.lastIndexOf('/')+1);
+                        imageName = imageURLString.substring( imageURLString.lastIndexOf('/')+1);
 
                         FileOutputStream outputStream = openFileOutput( imageName, Context.MODE_PRIVATE);
 
@@ -207,26 +241,28 @@ public class TicketMaster extends AppCompatActivity
                         outputStream.flush();
                         outputStream.close();
                         FileInputStream fis = null;
-                        try {    fis = openFileInput(String.valueOf(image));   }
-                        catch (FileNotFoundException e) {    e.printStackTrace();  }
+                        try {    fis = openFileInput(String.valueOf(imageName));   }
+                        catch (FileNotFoundException e)
+                        {
+                            e.printStackTrace();
+                        }
                         Bitmap bm = BitmapFactory.decodeStream(fis);
                     }
-
                     ContentValues newRowValues = new ContentValues();
                     newRowValues.put(TicketMasterOpener.COL_CITY, city);
                     newRowValues.put(TicketMasterOpener.COL_EVENT_NAME, eventName);
                     newRowValues.put(TicketMasterOpener.COL_START_DATE, startDate);
                     newRowValues.put(TicketMasterOpener.COL_MIN_PRICE, ticketPriceMin);
                     newRowValues.put(TicketMasterOpener.COL_MAX_PRICE, ticketPriceMax);
-                    String imageString = encodeTobase64(image);
+                    imageString = encodeTobase64(image);
                     newRowValues.put(TicketMasterOpener.COL_IMAGE_STRING, imageString);
                     newRowValues.put(TicketMasterOpener.COL_URL, eventUrl);
-
                     long newId = dataBase.insert(TicketMasterOpener.TABLE_NAME, null, newRowValues);
 
                     events.add(new TicketEvent(city, eventName, startDate, ticketPriceMin, ticketPriceMax, eventUrl, image, newId));
                     Log.i("Event Created", "Event name: " + eventName);
-                    publishProgress(i/eventArrayLength*100);
+                    int inpars = (int)((i+1)*100)/eventArrayLength;
+                    publishProgress(inpars);
                 }
             }
             catch (Exception ignored)
@@ -234,7 +270,7 @@ public class TicketMaster extends AppCompatActivity
 
             }
             publishProgress(100);
-            return "Done";
+            return "Compleated Success";
         }
 
         /**
@@ -252,6 +288,21 @@ public class TicketMaster extends AppCompatActivity
             Log.i("Progress", "Progress is :" + value[0] + "%");
         }
 
+        /**
+         * Runs after the database and ArrayList is populated.
+         * <p>
+         * Sets the progress bar to INVISIBLE.
+         * updates the screen.
+         *
+         * @param fromDoInBackground Final string returned from doInBackground.
+         */
+        public void onPostExecute(String fromDoInBackground)
+        {
+            theBar.setVisibility(View.INVISIBLE);
+            myAdapter.notifyDataSetChanged();
+            Log.i("Finalized", fromDoInBackground);
+        }
+
     }
 
     /**
@@ -267,7 +318,11 @@ public class TicketMaster extends AppCompatActivity
     private class TicketMasterListAdapter extends BaseAdapter
     {
 
-        public int getCount() { return events.size();}
+        public int getCount()
+        {
+            if(events == null) return 0;
+            return events.size();
+        }
 
         public Object getItem(int position){return position;}
 
@@ -308,26 +363,28 @@ public class TicketMaster extends AppCompatActivity
                 TicketMasterOpener.COL_MAX_PRICE,
                 TicketMasterOpener.COL_IMAGE_STRING,
                 TicketMasterOpener.COL_URL};
-        Cursor results = dataBase.query(false, TicketMasterOpener.TABLE_NAME, columns, null, null, null, null, null, null);
-        int cityColumnIndex = results.getColumnIndex(TicketMasterOpener.COL_CITY);
-        int eventNameColIndex = results.getColumnIndex(TicketMasterOpener.COL_EVENT_NAME);
-        int startDateColIndex = results.getColumnIndex(TicketMasterOpener.COL_START_DATE);
-        int minPriceColIndex = results.getColumnIndex(TicketMasterOpener.COL_MIN_PRICE);
-        int maxPriceColIndex = results.getColumnIndex(TicketMasterOpener.COL_MAX_PRICE);
-        int urlColIndex = results.getColumnIndex(TicketMasterOpener.COL_URL);
-        int imageStringColIndex = results.getColumnIndex(TicketMasterOpener.COL_URL);
-        int idColIndex = results.getColumnIndex(TicketMasterOpener.COL_ID);
-        while(results.moveToNext())
+        try(Cursor results = dataBase.query(false, TicketMasterOpener.TABLE_NAME, columns, null, null, null, null, null, null))
         {
-            String city = results.getString(cityColumnIndex);
-            String eventName = results.getString(eventNameColIndex);
-            String startDate = results.getString(startDateColIndex);
-            double minPrice = Double.parseDouble(results.getString(minPriceColIndex));
-            double maxPrice = Double.parseDouble(results.getString(maxPriceColIndex));
-            String url = results.getString(urlColIndex);
-            Bitmap imageDecoded = decodeBase64(results.getString(imageStringColIndex));
-            long id = results.getLong(idColIndex);
-            events.add(new TicketEvent(city, eventName, startDate, minPrice, maxPrice, url, imageDecoded, id));
+            int cityColumnIndex = results.getColumnIndex(TicketMasterOpener.COL_CITY);
+            int eventNameColIndex = results.getColumnIndex(TicketMasterOpener.COL_EVENT_NAME);
+            int startDateColIndex = results.getColumnIndex(TicketMasterOpener.COL_START_DATE);
+            int minPriceColIndex = results.getColumnIndex(TicketMasterOpener.COL_MIN_PRICE);
+            int maxPriceColIndex = results.getColumnIndex(TicketMasterOpener.COL_MAX_PRICE);
+            int urlColIndex = results.getColumnIndex(TicketMasterOpener.COL_URL);
+            int imageStringColIndex = results.getColumnIndex(TicketMasterOpener.COL_IMAGE_STRING);
+            int idColIndex = results.getColumnIndex(TicketMasterOpener.COL_ID);
+            while(results.moveToNext())
+            {
+                String city = results.getString(cityColumnIndex);
+                String eventName = results.getString(eventNameColIndex);
+                String startDate = results.getString(startDateColIndex);
+                double minPrice = Double.parseDouble(results.getString(minPriceColIndex));
+                double maxPrice = Double.parseDouble(results.getString(maxPriceColIndex));
+                String url = results.getString(urlColIndex);
+                Bitmap imageDecoded = decodeBase64(results.getString(imageStringColIndex));
+                long id = results.getLong(idColIndex);
+                events.add(new TicketEvent(city, eventName, startDate, minPrice, maxPrice, url, imageDecoded, id));
+            }
         }
     }
 
