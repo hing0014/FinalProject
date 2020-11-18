@@ -1,4 +1,21 @@
 <resources>
-    <string name="app_name">FinalProject</string>
+    <string name="app_name">Final Project</string>
+    <string name="CovidNavButton">Covid-19</string>
+    <string name="AudioNavButton">Audio Database</string>
+    <string name="RecipeNavButton">Recipe</string>
+    <string name="TicketMasterNavButton">TicketMaster</string>
+    <string-array name="navItems">
+        <item>Home</item>
+        <item>Covid-19</item>
+        <item>Audio Database</item>
+        <item>Recipe</item>
+        <item>TicketMaster</item>
+    </string-array>
+    <string name="searchText">Search..</string>
+    <string name="country">Country:</string>
+    <string name="conCode">Country Code:</string>
+    <string name="province">Province:</string>
+    <string name="cases">Cases:</string>
+    <string name="status">Status:</string>
 
 </resources>
