@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,7 @@ import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -38,6 +40,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 /**
@@ -215,6 +218,8 @@ public class TicketMaster extends AppCompatActivity
                     newRowValues.put(TicketMasterOpener.COL_START_DATE, startDate);
                     newRowValues.put(TicketMasterOpener.COL_MIN_PRICE, ticketPriceMin);
                     newRowValues.put(TicketMasterOpener.COL_MAX_PRICE, ticketPriceMax);
+                    String imageString = encodeTobase64(image);
+                    newRowValues.put(TicketMasterOpener.COL_IMAGE_STRING, imageString);
                     newRowValues.put(TicketMasterOpener.COL_URL, eventUrl);
 
                     long newId = dataBase.insert(TicketMasterOpener.TABLE_NAME, null, newRowValues);
@@ -295,6 +300,7 @@ public class TicketMaster extends AppCompatActivity
                 TicketMasterOpener.COL_START_DATE,
                 TicketMasterOpener.COL_MIN_PRICE,
                 TicketMasterOpener.COL_MAX_PRICE,
+                TicketMasterOpener.COL_IMAGE_STRING,
                 TicketMasterOpener.COL_URL};
         Cursor results = dataBase.query(false, TicketMasterOpener.TABLE_NAME, columns, null, null, null, null, null, null);
         int cityColumnIndex = results.getColumnIndex(TicketMasterOpener.COL_CITY);
@@ -303,6 +309,7 @@ public class TicketMaster extends AppCompatActivity
         int minPriceColIndex = results.getColumnIndex(TicketMasterOpener.COL_MIN_PRICE);
         int maxPriceColIndex = results.getColumnIndex(TicketMasterOpener.COL_MAX_PRICE);
         int urlColIndex = results.getColumnIndex(TicketMasterOpener.COL_URL);
+        int imageStringColIndex = results.getColumnIndex(TicketMasterOpener.COL_URL);
         int idColIndex = results.getColumnIndex(TicketMasterOpener.COL_ID);
         while(results.moveToNext())
         {
@@ -312,8 +319,9 @@ public class TicketMaster extends AppCompatActivity
             double minPrice = Double.parseDouble(results.getString(minPriceColIndex));
             double maxPrice = Double.parseDouble(results.getString(maxPriceColIndex));
             String url = results.getString(urlColIndex);
+            Bitmap imageDecoded = decodeBase64(results.getString(imageStringColIndex));
             long id = results.getLong(idColIndex);
-            events.add(new TicketEvent(city, eventName, startDate, minPrice, maxPrice, url, id));
+            events.add(new TicketEvent(city, eventName, startDate, minPrice, maxPrice, url, imageDecoded, id));
         }
     }
 
@@ -327,11 +335,6 @@ public class TicketMaster extends AppCompatActivity
         String url;
         long index;
         Bitmap image;
-
-        private TicketEvent(String city, String eventName, String startDate, double ticketPriceMin, double ticketPriceMax, String url, long index)
-        {
-            this(city, eventName, startDate, ticketPriceMin, ticketPriceMax, url, null, index);
-        }
 
         private TicketEvent(String city, String eventName, String startDate, double ticketPriceMin, double ticketPriceMax, String url, Bitmap image, long index)
         {
@@ -359,5 +362,27 @@ public class TicketMaster extends AppCompatActivity
         public String getUrl(){ return url; }
         public Bitmap getImage() {return image;}
         public long getId() { return index; }
+    }
+
+    /*
+     * Amol Suryawanshi (Apr 22 '16 at 10:28). converting Java bitmap to byte array [Webpage]. Retrieved from
+     * https://stackoverflow.com/questions/4989182/converting-java-bitmap-to-byte-array
+     */
+    public static String encodeTobase64(Bitmap image) {
+        Bitmap immagex = image;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        immagex.compress(Bitmap.CompressFormat.PNG, 90, baos);
+        byte[] b = baos.toByteArray();
+        String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
+        return imageEncoded;
+    }
+
+    /*
+     * Amol Suryawanshi (Apr 22 '16 at 10:28). converting Java bitmap to byte array [Webpage]. Retrieved from
+     * https://stackoverflow.com/questions/4989182/converting-java-bitmap-to-byte-array
+     */
+    public static Bitmap decodeBase64(String input) {
+        byte[] decodedByte = Base64.decode(input, 0);
+        return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
     }
 }

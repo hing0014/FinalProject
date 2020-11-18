@@ -27,6 +27,7 @@ public class TicketMasterOpener extends SQLiteOpenHelper
     public final static String COL_MIN_PRICE = "MIN PRICE";
     public final static String COL_MAX_PRICE = "MAX PRICE";
     public final static String COL_URL = "URL";
+    public final static String COL_IMAGE_STRING = "IMAGE";
     public final static String COL_ID = "_id";
 
     /**
@@ -56,6 +57,7 @@ public class TicketMasterOpener extends SQLiteOpenHelper
                 + COL_START_DATE + " ,text,"
                 + COL_MIN_PRICE + " ,text,"
                 + COL_MAX_PRICE + " ,text,"
+                + COL_IMAGE_STRING + " ,text,"
                 + COL_URL  + " text);");
     }
 
