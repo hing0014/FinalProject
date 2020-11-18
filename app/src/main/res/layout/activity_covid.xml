@@ -7,7 +7,6 @@
 <!--    android:gravity="top"-->
 <!--    android:orientation="vertical">-->
 
-<!--    <include layout="@layout/activity_navigation"/>-->
 
 <!--    <LinearLayout-->
 <!--        android:layout_width="match_parent"-->
@@ -51,26 +50,24 @@
     android:orientation="vertical"
     tools:ignore="UseSwitchCompatOrMaterialXml">
 
-<!--    <include layout="@layout/activity_navigation"-->
-<!--        android:id="header"/>-->
 
-<!--    <EditText-->
-<!--        android:id="@+id/message"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:hint="type here"-->
-<!--        android:inputType="textShortMessage"-->
-<!--        android:autofillHints="type here"-->
-<!--        android:layout_alignParentStart="true"-->
-<!--        />-->
+    <EditText
+        android:id="@+id/message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="type here"
+        android:inputType="textShortMessage"
+        android:autofillHints="type here"
+        android:layout_alignParentStart="true"
+        />
 
-<!--    <ImageButton-->
-<!--        android:id="@+id/magnify"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_weight="28"-->
-<!--        android:srcCompat="@drawable/magnify"-->
-<!--        android:layout_alignParentEnd="true"/>-->
+    <ImageButton
+        android:id="@+id/magnify"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="28"
+        android:srcCompat="@drawable/magnify"
+        android:layout_alignParentEnd="true"/>
 
 
 </RelativeLayout>

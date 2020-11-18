@@ -7,9 +7,12 @@
     <string name="TicketMasterNavButton">TicketMaster</string>
     <string name="city_search" >City Search</string>
     <string name="SearchButtonText">Search</string>
-
     <string name="searchRecipesEdit"></string>
     <string name="recipeIconDesc"></string>
     <string name="favouriteButton"></string>
     <string name="recipeRowText"></string>
+    <string name="HomeNavButton">Home</string>
+    <string name="radius_search">Radius</string>
+    <string name="event_name">Event Name</string>
+    <string name="eventIcon">Event Icon</string>
 </resources>
