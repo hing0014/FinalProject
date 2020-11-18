@@ -288,7 +288,13 @@ public class TicketMaster extends AppCompatActivity
             return view;
         }
     }
-
+    /**
+     * Loads Items from the database into the ArrayList.
+     * <p>
+     * Pull each line out of the database and build a new TicketEvent based on the data.
+     * Adds the new TicketEvent to the ArrayList of TicketEvents.
+     *
+     */
     private void loadDataFromDatabase()
     {
         TicketMasterOpener dbOpener = new TicketMasterOpener(this);
@@ -368,13 +374,12 @@ public class TicketMaster extends AppCompatActivity
      * Amol Suryawanshi (Apr 22 '16 at 10:28). converting Java bitmap to byte array [Webpage]. Retrieved from
      * https://stackoverflow.com/questions/4989182/converting-java-bitmap-to-byte-array
      */
-    public static String encodeTobase64(Bitmap image) {
-        Bitmap immagex = image;
+    public static String encodeTobase64(Bitmap image)
+    {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        immagex.compress(Bitmap.CompressFormat.PNG, 90, baos);
+        image.compress(Bitmap.CompressFormat.PNG, 90, baos);
         byte[] b = baos.toByteArray();
-        String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
-        return imageEncoded;
+        return Base64.encodeToString(b, Base64.DEFAULT);
     }
 
     /*
