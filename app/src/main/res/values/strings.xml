@@ -12,6 +12,12 @@
         <item>Recipe</item>
         <item>TicketMaster</item>
     </string-array>
+    <string name="searchText">Search..</string>
+    <string name="country">Country:</string>
+    <string name="conCode">Country Code:</string>
+    <string name="province">Province:</string>
+    <string name="cases">Cases:</string>
+    <string name="status">Status:</string>
     <string name="SearchButtonText">Search</string>
     <string name="searchRecipesEdit">Search Recipes…</string>
     <string name="recipeIconDesc">Icon of a recipe</string>
@@ -21,5 +27,10 @@
     <string name="HomeNavButton">Hone</string>
     <string name="event_name">Event Name</string>
     <string name="eventIcon">Event Icon</string>
-
+    <string name="searchText">Search..</string>
+    <string name="country">Country:</string>
+    <string name="conCode">Country Code:</string>
+    <string name="province">Province:</string>
+    <string name="cases">Cases:</string>
+    <string name="status">Status:</string>
 </resources>
