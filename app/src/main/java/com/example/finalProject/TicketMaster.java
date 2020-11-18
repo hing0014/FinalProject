@@ -154,6 +154,7 @@ public class TicketMaster extends AppCompatActivity
      * @version 1.0
      * @author Chris HIng
      */
+    @SuppressLint("StaticFieldLeak")
     private class TicketMasterQuery extends AsyncTask<String, Integer, String>
     {
         String city;
@@ -385,6 +386,7 @@ public class TicketMaster extends AppCompatActivity
                 long id = results.getLong(idColIndex);
                 events.add(new TicketEvent(city, eventName, startDate, minPrice, maxPrice, url, imageDecoded, id));
             }
+
         }
     }
 
