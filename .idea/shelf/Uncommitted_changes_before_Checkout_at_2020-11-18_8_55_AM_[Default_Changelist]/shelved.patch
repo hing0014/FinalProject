@@ -1,0 +1,148 @@
+Index: app/src/main/java/com/example/finalProject/TicketMaster.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.finalProject;\r\n\r\nimport android.annotation.SuppressLint;\r\n\r\nimport android.content.ContentValues;\r\nimport android.content.Context;\r\nimport android.database.Cursor;\r\nimport android.database.sqlite.SQLiteDatabase;\r\nimport android.graphics.Bitmap;\r\nimport android.graphics.BitmapFactory;\r\nimport android.os.AsyncTask;\r\nimport android.os.Bundle;\r\nimport android.util.Base64;\r\nimport android.util.Log;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.webkit.URLUtil;\r\nimport android.widget.BaseAdapter;\r\nimport android.widget.Button;\r\nimport android.widget.EditText;\r\nimport android.widget.ImageView;\r\nimport android.widget.ListView;\r\nimport android.widget.ProgressBar;\r\nimport android.widget.TextView;\r\nimport android.widget.Toast;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport org.json.JSONArray;\r\nimport org.json.JSONObject;\r\nimport org.xmlpull.v1.XmlPullParser;\r\n\r\nimport java.io.BufferedReader;\r\nimport java.io.ByteArrayOutputStream;\r\nimport java.io.FileInputStream;\r\nimport java.io.FileNotFoundException;\r\nimport java.io.FileOutputStream;\r\nimport java.io.InputStream;\r\nimport java.io.InputStreamReader;\r\nimport java.net.HttpURLConnection;\r\nimport java.net.URL;\r\nimport java.nio.ByteBuffer;\r\nimport java.nio.charset.StandardCharsets;\r\nimport java.util.ArrayList;\r\n/**\r\n * Links between the XML and ticketmaster database.\r\n *  <p>\r\n * Course Name: CST8288_010\r\n * Class name: TicketMaster\r\n * Date: November 19, 2020\r\n *\r\n * @version 1.0\r\n * @author Chris HIng\r\n */\r\npublic class TicketMaster extends AppCompatActivity\r\n{\r\n    /**\r\n     * Fields for storing the database information for use throughout the class.\r\n     */\r\n    private ArrayList<TicketEvent> events;\r\n    private TicketMasterListAdapter myAdapter;\r\n    private ProgressBar theBar;\r\n    String city;\r\n    String radius;\r\n    SQLiteDatabase dataBase;\r\n\r\n    /**\r\n     * Creates and manages the click listeners of the button.\r\n     * <p>\r\n     * When the search button is clicked the editText fields stored data is passed to the TicketMasterQuery in the form of the data source URL.\r\n     * That information is then displayed on screen.\r\n     *\r\n     * @param savedInstanceState Bundle object used in the super call of onCreate.\r\n     */\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState)\r\n    {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_ticket_master);\r\n        theBar = findViewById(R.id.loadBar);\r\n        theBar.setVisibility(View.VISIBLE);\r\n\r\n        ListView myList = findViewById(R.id.theListView);\r\n        myList.setAdapter(myAdapter = new TicketMasterListAdapter());\r\n\r\n        Button searchButton = findViewById(R.id.searchButton);\r\n        TicketMasterQuery tickQuer = new TicketMasterQuery();\r\n        searchButton.setOnClickListener(click ->\r\n        {\r\n            EditText cityText = findViewById(R.id.citySearch);\r\n            city = cityText.toString();\r\n            EditText radiusText = findViewById(R.id.radius);\r\n            radius = radiusText.toString();\r\n            boolean isInt = true;\r\n            try {\r\n                int num = Integer.parseInt(radius);\r\n            } catch (NumberFormatException e) {\r\n                isInt = false;\r\n            }\r\n            if(isInt)\r\n            {\r\n                if(URLUtil.isValidUrl(\"https://app.ticketmaster.com/discovery/v2/events.json?apikey=9xSSOAi25vaqiTP1UGfMa1fxycNnJPpd&city=\" + city + \"&radius=\" + radius))\r\n                {\r\n                    tickQuer.execute(\"https://app.ticketmaster.com/discovery/v2/events.json?apikey=9xSSOAi25vaqiTP1UGfMa1fxycNnJPpd&city=\" + city + \"&radius=\" + radius, city);\r\n                }\r\n                else Toast.makeText(getApplicationContext(),\"INVALID CITY: city not found\", Toast.LENGTH_SHORT).show();\r\n            }\r\n            else Toast.makeText(getApplicationContext(),\"INVALID RADIUS: please enter a whole number\", Toast.LENGTH_SHORT).show();\r\n            myAdapter.notifyDataSetChanged();\r\n        });\r\n    }\r\n\r\n    /**\r\n     * Handles the link to the data and creation fo the database.\r\n     *  <p>\r\n     * Course Name: CST8288_010\r\n     * Class name: TicketMasterQuery\r\n     * Date: November 19, 2020\r\n     *\r\n     * @version 1.0\r\n     * @author Chris HIng\r\n     */\r\n    private class TicketMasterQuery extends AsyncTask<String, Integer, String>\r\n    {\r\n        String city;\r\n\r\n        /*\r\n         * Real Red (Mar 3 '09 at 9:37). Get file name from URL [Webpage]. Retrieved from\r\n         * https://stackoverflow.com/questions/605696/get-file-name-from-url\r\n         */\r\n        /**\r\n         * Gathers the TicketMaster data and builds the database.\r\n         * <p>\r\n         * Connects to the passed in URL.\r\n         * Converts websites JSON file to a string.\r\n         * Extracts the required information out of the string and into and array of TicketEvent objects.\r\n         *\r\n         * @param debates An array of Strings, the first string being the TicketMaster URL, and the second being the city name.\r\n         */\r\n        @Override\r\n        protected String doInBackground(String... debates)\r\n        {\r\n            Bitmap image = null;\r\n            city = debates[1];\r\n            try\r\n            {\r\n                URL url = new URL(debates[0]);\r\n                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();\r\n                InputStream response = urlConnection.getInputStream();\r\n                BufferedReader reader = new BufferedReader(new InputStreamReader(response, StandardCharsets.UTF_8), 8);\r\n                StringBuilder sb = new StringBuilder();\r\n                String line;\r\n                while ((line = reader.readLine()) != null)\r\n                {\r\n                    sb.append(line).append(\"\\n\");\r\n                }\r\n                String result = sb.toString();\r\n                JSONObject jObject = new JSONObject(result);\r\n                JSONObject jObjEmbed = jObject.getJSONObject(\"_embedded\");\r\n                JSONArray jsonEventArray = jObjEmbed.getJSONArray(\"events\");\r\n                int eventArrayLength = jsonEventArray.length();\r\n                for(int i = 0; i < eventArrayLength; i++)\r\n                {\r\n                    JSONObject jsonEvent = jsonEventArray.getJSONObject(i);\r\n                    String eventName= jsonEvent.getString(\"name\");\r\n\r\n                    JSONObject jsonEventDates = jsonEvent.getJSONObject(\"dates\");\r\n                    JSONObject jsonEventStart = jsonEventDates.getJSONObject(\"start\");\r\n                    String startDate = jsonEventStart.getString(\"localDate\");\r\n\r\n                    JSONObject jsonEventPriceRanges = jsonEvent.getJSONObject(\"priceRanges\");\r\n                    double ticketPriceMin = jsonEventPriceRanges.getDouble(\"min\");\r\n                    double ticketPriceMax = jsonEventPriceRanges.getDouble(\"max\");\r\n\r\n                    String eventUrl = jsonEvent.getString(\"url\");\r\n\r\n                    String imageURLString = \"\";\r\n                    JSONArray jsonImages = jsonEvent.getJSONArray(\"images\");\r\n                    for(int ii = 0; ii < jsonImages.length(); ii++)\r\n                    {\r\n                        JSONObject jasonImageDetails = jsonImages.getJSONObject(ii);\r\n\r\n                        if(jasonImageDetails.getString(\"ratio\").equals(\"4_3\"))\r\n                        {\r\n                            imageURLString = jasonImageDetails.getString(\"url\");\r\n                            break;\r\n                        }\r\n                    }\r\n\r\n                    if(!(imageURLString.equals(\"\")))\r\n                    {\r\n                        URL imageUrlObject = new URL(imageURLString);\r\n                        HttpURLConnection connection = (HttpURLConnection) imageUrlObject.openConnection();\r\n                        connection.connect();\r\n                        int responseCode = connection.getResponseCode();\r\n                        if (responseCode == 200)\r\n                        {\r\n                            image = BitmapFactory.decodeStream(connection.getInputStream());\r\n                        }\r\n\r\n                        String imageName = imageURLString.substring( imageURLString.lastIndexOf('/')+1);\r\n\r\n                        FileOutputStream outputStream = openFileOutput( imageName, Context.MODE_PRIVATE);\r\n\r\n                        image.compress(Bitmap.CompressFormat.PNG, 80, outputStream);\r\n                        outputStream.flush();\r\n                        outputStream.close();\r\n                        FileInputStream fis = null;\r\n                        try {    fis = openFileInput(String.valueOf(image));   }\r\n                        catch (FileNotFoundException e) {    e.printStackTrace();  }\r\n                        Bitmap bm = BitmapFactory.decodeStream(fis);\r\n                    }\r\n\r\n                    ContentValues newRowValues = new ContentValues();\r\n                    newRowValues.put(TicketMasterOpener.COL_CITY, city);\r\n                    newRowValues.put(TicketMasterOpener.COL_EVENT_NAME, eventName);\r\n                    newRowValues.put(TicketMasterOpener.COL_START_DATE, startDate);\r\n                    newRowValues.put(TicketMasterOpener.COL_MIN_PRICE, ticketPriceMin);\r\n                    newRowValues.put(TicketMasterOpener.COL_MAX_PRICE, ticketPriceMax);\r\n                    String imageString = encodeTobase64(image);\r\n                    newRowValues.put(TicketMasterOpener.COL_IMAGE_STRING, imageString);\r\n                    newRowValues.put(TicketMasterOpener.COL_URL, eventUrl);\r\n\r\n                    long newId = dataBase.insert(TicketMasterOpener.TABLE_NAME, null, newRowValues);\r\n\r\n                    events.add(new TicketEvent(city, eventName, startDate, ticketPriceMin, ticketPriceMax, eventUrl, image, newId));\r\n                    Log.i(\"Event Created\", \"Event name: \" + eventName);\r\n                    publishProgress(i/eventArrayLength*100);\r\n                }\r\n            }\r\n            catch (Exception ignored)\r\n            {\r\n\r\n            }\r\n            publishProgress(100);\r\n            return \"Done\";\r\n        }\r\n\r\n        /**\r\n         * Gathers the TicketMaster data and builds the database.\r\n         * <p>\r\n         * Connects to the passed in URL.\r\n         * Converts websites JSON file to a string.\r\n         * Extracts the required information out of the string and into and array of TicketEvent objects.\r\n         *\r\n         * @param value An array of Integers used to store in the log and update the on screen progress bar.\r\n         */\r\n        public void onProgressUpdate(Integer...value)\r\n        {\r\n            theBar.setProgress(value[0]);\r\n            Log.i(\"Progress\", \"Progress is :\" + value[0] + \"%\");\r\n        }\r\n\r\n    }\r\n\r\n    /**\r\n     * Adds the rows to the screen.\r\n     *  <p>\r\n     * Course Name: CST8288_010\r\n     * Class name: TicketMasterListAdapter\r\n     * Date: November 19, 2020\r\n     *\r\n     * @version 1.0\r\n     * @author Chris HIng\r\n     */\r\n    private class TicketMasterListAdapter extends BaseAdapter\r\n    {\r\n\r\n        public int getCount() { return events.size();}\r\n\r\n        public Object getItem(int position){return position;}\r\n\r\n        public long getItemId(int position) { return position; }\r\n\r\n        public View getView(int position, View view, ViewGroup parent)\r\n        {\r\n            TicketEvent arEl = events.get(position);\r\n            LayoutInflater inflater = getLayoutInflater();\r\n            if(view == null) view = inflater.inflate(R.layout.row_ticket_master_event, parent, false);\r\n\r\n            TextView messageText = view.findViewById(R.id.eventRowName);\r\n            messageText.setText(arEl.getEventName());\r\n\r\n            ImageView gotImage = view.findViewById(R.id.eventImage);\r\n            gotImage.setImageBitmap(arEl.getImage());\r\n\r\n            return view;\r\n        }\r\n    }\r\n    /**\r\n     * Loads Items from the database into the ArrayList.\r\n     * <p>\r\n     * Pull each line out of the database and build a new TicketEvent based on the data.\r\n     * Adds the new TicketEvent to the ArrayList of TicketEvents.\r\n     *\r\n     */\r\n    private void loadDataFromDatabase()\r\n    {\r\n        TicketMasterOpener dbOpener = new TicketMasterOpener(this);\r\n        dataBase = dbOpener.getWritableDatabase();\r\n        String [] columns = {\r\n                TicketMasterOpener.COL_ID,\r\n                TicketMasterOpener.COL_CITY,\r\n                TicketMasterOpener.COL_EVENT_NAME,\r\n                TicketMasterOpener.COL_START_DATE,\r\n                TicketMasterOpener.COL_MIN_PRICE,\r\n                TicketMasterOpener.COL_MAX_PRICE,\r\n                TicketMasterOpener.COL_IMAGE_STRING,\r\n                TicketMasterOpener.COL_URL};\r\n        Cursor results = dataBase.query(false, TicketMasterOpener.TABLE_NAME, columns, null, null, null, null, null, null);\r\n        int cityColumnIndex = results.getColumnIndex(TicketMasterOpener.COL_CITY);\r\n        int eventNameColIndex = results.getColumnIndex(TicketMasterOpener.COL_EVENT_NAME);\r\n        int startDateColIndex = results.getColumnIndex(TicketMasterOpener.COL_START_DATE);\r\n        int minPriceColIndex = results.getColumnIndex(TicketMasterOpener.COL_MIN_PRICE);\r\n        int maxPriceColIndex = results.getColumnIndex(TicketMasterOpener.COL_MAX_PRICE);\r\n        int urlColIndex = results.getColumnIndex(TicketMasterOpener.COL_URL);\r\n        int imageStringColIndex = results.getColumnIndex(TicketMasterOpener.COL_URL);\r\n        int idColIndex = results.getColumnIndex(TicketMasterOpener.COL_ID);\r\n        while(results.moveToNext())\r\n        {\r\n            String city = results.getString(cityColumnIndex);\r\n            String eventName = results.getString(eventNameColIndex);\r\n            String startDate = results.getString(startDateColIndex);\r\n            double minPrice = Double.parseDouble(results.getString(minPriceColIndex));\r\n            double maxPrice = Double.parseDouble(results.getString(maxPriceColIndex));\r\n            String url = results.getString(urlColIndex);\r\n            Bitmap imageDecoded = decodeBase64(results.getString(imageStringColIndex));\r\n            long id = results.getLong(idColIndex);\r\n            events.add(new TicketEvent(city, eventName, startDate, minPrice, maxPrice, url, imageDecoded, id));\r\n        }\r\n    }\r\n\r\n    private static class TicketEvent\r\n    {\r\n        String city;\r\n        String eventName;\r\n        String startDate;\r\n        double ticketPriceMin;\r\n        double ticketPriceMax;\r\n        String url;\r\n        long index;\r\n        Bitmap image;\r\n\r\n        private TicketEvent(String city, String eventName, String startDate, double ticketPriceMin, double ticketPriceMax, String url, Bitmap image, long index)\r\n        {\r\n            this.city = city;\r\n            this.eventName = eventName;\r\n            this.startDate = startDate;\r\n            this.ticketPriceMin = ticketPriceMin;\r\n            this.ticketPriceMax = ticketPriceMax;\r\n            this.url = url;\r\n            this.index = index;\r\n            this.image = image;\r\n        }\r\n\r\n        public String getCity()\r\n        {\r\n            return city;\r\n        }\r\n        public String getEventName()\r\n        {\r\n            return eventName;\r\n        }\r\n        public String getStartDate(){ return startDate; }\r\n        public double getTicketPriceMin(){ return ticketPriceMin; }\r\n        public double getTicketPriceMax(){ return ticketPriceMax; }\r\n        public String getUrl(){ return url; }\r\n        public Bitmap getImage() {return image;}\r\n        public long getId() { return index; }\r\n    }\r\n\r\n    /*\r\n     * Amol Suryawanshi (Apr 22 '16 at 10:28). converting Java bitmap to byte array [Webpage]. Retrieved from\r\n     * https://stackoverflow.com/questions/4989182/converting-java-bitmap-to-byte-array\r\n     */\r\n    public static String encodeTobase64(Bitmap image)\r\n    {\r\n        ByteArrayOutputStream baos = new ByteArrayOutputStream();\r\n        image.compress(Bitmap.CompressFormat.PNG, 90, baos);\r\n        byte[] b = baos.toByteArray();\r\n        return Base64.encodeToString(b, Base64.DEFAULT);\r\n    }\r\n\r\n    /*\r\n     * Amol Suryawanshi (Apr 22 '16 at 10:28). converting Java bitmap to byte array [Webpage]. Retrieved from\r\n     * https://stackoverflow.com/questions/4989182/converting-java-bitmap-to-byte-array\r\n     */\r\n    public static Bitmap decodeBase64(String input) {\r\n        byte[] decodedByte = Base64.decode(input, 0);\r\n        return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/finalProject/TicketMaster.java	(revision 1d807181dd29e5277a7e813c54d70796fc71c487)
++++ app/src/main/java/com/example/finalProject/TicketMaster.java	(date 1605663956251)
+@@ -266,13 +266,38 @@
+      */
+     private class TicketMasterListAdapter extends BaseAdapter
+     {
+-
++        /**
++         * Returns the number of events in the ArrayList.
++         * <p>
++         * Returns the number of events in the ArrayList.
++         */
+         public int getCount() { return events.size();}
+-
++        /**
++         * Returns the position of a specified event in the ArrayList as an object.
++         * <p>
++         * Returns the position of a specified event in the ArrayList as an object.
++         *
++         * @param position The integer position of the object i the ArrayList.
++         */
+         public Object getItem(int position){return position;}
+-
++        /**
++         * Returns the ID of a specified event in the ArrayList as an object.
++         * <p>
++         * Returns the ID of a specified event in the ArrayList as an object.
++         *
++         * @param position The integer position of the object i the ArrayList.
++         */
+         public long getItemId(int position) { return position; }
+-
++        /**
++         * Returns the ID of a specified event in the ArrayList as an object.
++         * <p>
++         * Returns the ID of a specified event in the ArrayList as an object.
++         *
++         * @param position The integer position of the object i the ArrayList.
++         * @param view The view object to add data to.
++         * @param parent The place to add the view to.
++         * @return The same view passed in.
++         */
+         public View getView(int position, View view, ViewGroup parent)
+         {
+             TicketEvent arEl = events.get(position);
+@@ -331,6 +356,16 @@
+         }
+     }
+ 
++    /**
++     * Ticket even object that holds all the details of the event.
++     *  <p>
++     * Course Name: CST8288_010
++     * Class name: TicketEvent
++     * Date: November 19, 2020
++     *
++     * @version 1.0
++     * @author Chris HIng
++     */
+     private static class TicketEvent
+     {
+         String city;
+@@ -342,6 +377,12 @@
+         long index;
+         Bitmap image;
+ 
++        /**
++         * Main constructor for the TicketEvent.
++         * <p>
++         * Main constructor for the TicketEvent.
++         *
++         */
+         private TicketEvent(String city, String eventName, String startDate, double ticketPriceMin, double ticketPriceMax, String url, Bitmap image, long index)
+         {
+             this.city = city;
+@@ -353,27 +394,38 @@
+             this.index = index;
+             this.image = image;
+         }
+-
+-        public String getCity()
+-        {
+-            return city;
+-        }
++        /**
++         * Getter for the event name.
++         * <p>
++         * Getter for the event name.
++         *
++         * @return event name.
++         */
+         public String getEventName()
+         {
+             return eventName;
+         }
+-        public String getStartDate(){ return startDate; }
+-        public double getTicketPriceMin(){ return ticketPriceMin; }
+-        public double getTicketPriceMax(){ return ticketPriceMax; }
+-        public String getUrl(){ return url; }
++        /**
++         * Getter for the image.
++         * <p>
++         * Getter for the image.
++         *
++         * @return image.
++         */
+         public Bitmap getImage() {return image;}
+-        public long getId() { return index; }
+     }
+ 
+     /*
+      * Amol Suryawanshi (Apr 22 '16 at 10:28). converting Java bitmap to byte array [Webpage]. Retrieved from
+      * https://stackoverflow.com/questions/4989182/converting-java-bitmap-to-byte-array
+      */
++    /**
++     * Converts a passed in bitmap to a string.
++     * <p>
++     * First turns the bitmap into a byte array, then turns the byte array into a string.
++     *
++     * @return A string holding the image data.
++     */
+     public static String encodeTobase64(Bitmap image)
+     {
+         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+@@ -386,7 +438,15 @@
+      * Amol Suryawanshi (Apr 22 '16 at 10:28). converting Java bitmap to byte array [Webpage]. Retrieved from
+      * https://stackoverflow.com/questions/4989182/converting-java-bitmap-to-byte-array
+      */
+-    public static Bitmap decodeBase64(String input) {
++    /**
++     * Converts a passed in String to a Bitmap.
++     * <p>
++     * First turns the String into a byte array, then turns the byte array into a Bitmap.
++     *
++     * @return A image Bitmap
++     */
++    public static Bitmap decodeBase64(String input)
++    {
+         byte[] decodedByte = Base64.decode(input, 0);
+         return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+     }

@@ -1,0 +1,86 @@
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"PLATFORM\" />\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"gradleJvm\" value=\"1.8\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n        <option name=\"resolveModulePerSourceSet\" value=\"false\" />\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/gradle.xml	(revision aa504e615d73231d66ec0325145afcbf8f0ed4d5)
++++ .idea/gradle.xml	(date 1605709273448)
+@@ -15,6 +15,7 @@
+           </set>
+         </option>
+         <option name="resolveModulePerSourceSet" value="false" />
++        <option name="useQualifiedModuleNames" value="true" />
+       </GradleProjectSettings>
+     </option>
+   </component>
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\">Final Project</string>\r\n    <string name=\"CovidNavButton\">Covid-19</string>\r\n    <string name=\"AudioNavButton\">Audio Database</string>\r\n    <string name=\"RecipeNavButton\">Recipe</string>\r\n    <string name=\"TicketMasterNavButton\">TicketMaster</string>\r\n    <string name=\"city_search\">City Search</string>\r\n    <string-array name=\"navItems\">\r\n        <item>Home</item>\r\n        <item>Covid-19</item>\r\n        <item>Audio Database</item>\r\n        <item>Recipe</item>\r\n        <item>TicketMaster</item>\r\n    </string-array>\r\n    <string name=\"searchText\">Search..</string>\r\n    <string name=\"country\">Country:</string>\r\n    <string name=\"conCode\">Country Code:</string>\r\n    <string name=\"province\">Province:</string>\r\n    <string name=\"cases\">Cases:</string>\r\n    <string name=\"status\">Status:</string>\r\n    <string name=\"SearchButtonText\">Search</string>\r\n    <string name=\"searchRecipesEdit\">Search Recipes…</string>\r\n    <string name=\"recipeIconDesc\">Icon of a recipe</string>\r\n    <string name=\"favouriteButton\">Favourite</string>\r\n    <string name=\"recipeRowText\">Recipe Name</string>\r\n    <string name=\"radius_search\">Radius</string>\r\n    <string name=\"HomeNavButton\">Hone</string>\r\n    <string name=\"event_name\">Event Name</string>\r\n    <string name=\"eventIcon\">Event Icon</string>\r\n    <string name=\"searchText\">Search..</string>\r\n    <string name=\"country\">Country:</string>\r\n    <string name=\"conCode\">Country Code:</string>\r\n    <string name=\"province\">Province:</string>\r\n    <string name=\"cases\">Cases:</string>\r\n    <string name=\"status\">Status:</string>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/strings.xml	(revision aa504e615d73231d66ec0325145afcbf8f0ed4d5)
++++ app/src/main/res/values/strings.xml	(date 1605709292799)
+@@ -27,10 +27,5 @@
+     <string name="HomeNavButton">Hone</string>
+     <string name="event_name">Event Name</string>
+     <string name="eventIcon">Event Icon</string>
+-    <string name="searchText">Search..</string>
+-    <string name="country">Country:</string>
+-    <string name="conCode">Country Code:</string>
+-    <string name="province">Province:</string>
+-    <string name="cases">Cases:</string>
+-    <string name="status">Status:</string>
++
+ </resources>
+\ No newline at end of file
+Index: app/src/main/res/values-fr-rCA/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<resources>\r\n    <string name=\"app_name\">FinalProject</string>\r\n    <string name=\"CovidNavButton\">Covid-19</string>\r\n    <string name=\"AudioNavButton\">Base de données audio</string>\r\n    <string name=\"RecipeNavButton\">Recette</string>\r\n    <string name=\"TicketMasterNavButton\">TicketMaster</string>\r\n    <string name=\"EmptyNavButton\">Bouton de navigation vide</string>\r\n    <string name=\"searchText\">La recherche..</string>\r\n    <string name=\"country\">Les pays:</string>\r\n    <string name=\"conCode\">Le code du pays:</string>\r\n    <string name=\"province\">La province:</string>\r\n    <string name=\"cases\">Le cas:</string>\r\n    <string name=\"status\">Le statut:</string>\r\n    <string name=\"city_search\" >Recherche par ville</string>\r\n    <string name=\"SearchButtonText\">Chercher</string>\r\n    <string name=\"HomeNavButton\">Accueil</string>\r\n    <string name=\"radius_search\">Rayon</string>\r\n    <string name=\"event_name\">Nom de l\\'événement</string>\r\n    <string name=\"eventIcon\">\" Icône d'événement\"</string>\r\n    <string name=\"searchText\">La recherche..</string>\r\n    <string name=\"country\">Les pays:</string>\r\n    <string name=\"conCode\">Le code du pays:</string>\r\n    <string name=\"province\">La province:</string>\r\n    <string name=\"cases\">Le cas:</string>\r\n    <string name=\"status\">Le statut:</string>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values-fr-rCA/strings.xml	(revision aa504e615d73231d66ec0325145afcbf8f0ed4d5)
++++ app/src/main/res/values-fr-rCA/strings.xml	(date 1605709623920)
+@@ -5,7 +5,6 @@
+     <string name="AudioNavButton">Base de données audio</string>
+     <string name="RecipeNavButton">Recette</string>
+     <string name="TicketMasterNavButton">TicketMaster</string>
+-    <string name="EmptyNavButton">Bouton de navigation vide</string>
+     <string name="searchText">La recherche..</string>
+     <string name="country">Les pays:</string>
+     <string name="conCode">Le code du pays:</string>
+@@ -18,10 +17,4 @@
+     <string name="radius_search">Rayon</string>
+     <string name="event_name">Nom de l\'événement</string>
+     <string name="eventIcon">" Icône d'événement"</string>
+-    <string name="searchText">La recherche..</string>
+-    <string name="country">Les pays:</string>
+-    <string name="conCode">Le code du pays:</string>
+-    <string name="province">La province:</string>
+-    <string name="cases">Le cas:</string>
+-    <string name="status">Le statut:</string>
+ </resources>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_covid.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<RelativeLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_paren\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    android:gravity=\"top\"\r\n    android:orientation=\"vertical\">\r\n                                  \r\n    <EditText\r\n        android:id=\"@+id/searchText\"\r\n        android:layout_width=\"350dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:hint=\"search...\"\r\n        android:inputType=\"textPersonName\"\r\n        android:text=\"Search...\"\r\n        android:visibility=\"visible\" />\r\n\r\n    <ImageButton\r\n    android:id=\"@+id/magnify\"\r\n    android:layout_width=\"200dp\"\r\n    android:layout_height=\"wrap_content\"\r\n    android:layout_toRightOf=\"@+id/searchText\"\r\n    app:srcCompat=\"@drawable/magnify\" />\r\n\r\n<ListView\r\n    android:id=\"@+id/listView\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:layout_below=\"@+id/searchText\"\r\n    />\r\n\r\n</RelativeLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_covid.xml	(revision aa504e615d73231d66ec0325145afcbf8f0ed4d5)
++++ app/src/main/res/layout/activity_covid.xml	(date 1605709635700)
+@@ -2,7 +2,7 @@
+ <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+-    android:layout_height="match_paren
++    android:layout_height="match_parent"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:gravity="top"
+     android:orientation="vertical">
