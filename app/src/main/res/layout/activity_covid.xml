@@ -1,73 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    android:gravity="top"-->
-<!--    android:orientation="vertical">-->
-
-
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_weight="13"-->
-
-<!--        android:keepScreenOn="true"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:visibility="visible"-->
-<!--        tools:visibility="visible">-->
-<!--        -->
-<!--        <EditText-->
-<!--            android:id="@+id/message"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="type here"-->
-<!--            android:inputType="textShortMessage"-->
-<!--            android:autofillHints="type here"-->
-<!--            />-->
-
-<!--        <ImageButton-->
-<!--            android:id="@+id/magnify"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_weight="28"-->
-<!--            app:srcCompat="@drawable/magnify" />-->
-<!--    </LinearLayout>-->
-
-<!--    <ListView-->
-<!--        android:id="@+id/listView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_weight="1"/>-->
-<!--</LinearLayout>-->
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:ignore="UseSwitchCompatOrMaterialXml">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="top"
+    android:orientation="vertical">
 
     <EditText
-        android:id="@+id/message"
-        android:layout_width="wrap_content"
+        android:id="@+id/searchText"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:hint="type here"
-        android:inputType="textShortMessage"
-        android:autofillHints="type here"
-        android:layout_alignParentStart="true"
-        />
+        android:hint="search..."
+        android:inputType="textPersonName"
+        android:text="Search..."
+        android:visibility="visible" />
 
     <ImageButton
-        android:id="@+id/magnify"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="28"
-        android:srcCompat="@drawable/magnify"
-        android:layout_alignParentEnd="true"/>
+    android:id="@+id/magnify"
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    android:layout_toRightOf="@+id/searchText"
+    app:srcCompat="@drawable/magnify" />
 
+<ListView
+    android:id="@+id/listView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/searchText"
+    />
 
 </RelativeLayout>

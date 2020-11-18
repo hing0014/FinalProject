@@ -12,7 +12,7 @@
         android:fullBackupContent="true"
         android:icon="@mipmap/custom"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/custom"
+        android:roundIcon="@drawable/magnify"
         android:supportsRtl="true"
         android:windowSoftInputMode="adjustResize"
         android:theme="@style/AppTheme">
