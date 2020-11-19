@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 /**
  * Shows the values of the selected event.
  *  <p>
@@ -69,7 +70,7 @@ public class TicketDetails extends AppCompatActivity
         urlv.setText(eventUrl);
         urlv.setMovementMethod(LinkMovementMethod.getInstance());
 
-        Button back = (Button)findViewById(R.id.back);
+        Button back = findViewById(R.id.back);
         back.setOnClickListener( clk -> onBackPressed());
     }
 }

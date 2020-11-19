@@ -69,11 +69,13 @@ public class Covid extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_covid);
 
+
         ListView myList = (ListView) findViewById(R.id.listView);
         MyListAdapter myAdapter = new MyListAdapter();
         myList.setAdapter(myAdapter);
 
         loadDataFromDatabase();
+
 
         countryDisp = findViewById(R.id.country);
         countryCodeDisp = findViewById(R.id.conCode);
@@ -315,6 +317,7 @@ class CovidEvent {
     public String getProvince() {
         return province;
     }
+
 
     public double getCases() {
         return cases;
