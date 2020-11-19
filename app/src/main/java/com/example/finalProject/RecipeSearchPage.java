@@ -94,7 +94,7 @@ public class RecipeSearchPage extends AppCompatActivity {
         searchRecipes.setOnClickListener( click -> {
             String searchResult = searchBar.toString();
             if(URLUtil.isValidUrl("http://www.recipepuppy.com/api/?q="+ searchResult +"&p=3&format=xml")){
-                seeRecipes.execute("http://www.recipepuppy.com/api/?q="+ searchResult +"&p=3&format=xml");
+                seeRecipes.execute("http://www.recipepuppy.com/api/","?q="+ searchResult +"&p=3&format=xml");
                 //how to fill rows with recipe titles?
             }
             else{
@@ -145,19 +145,20 @@ public class RecipeSearchPage extends AppCompatActivity {
         /**
          * determines what is to be shown for each row of the listview
          * @param position row position
-         * @param convertView old view
+         * @param view old view
          * @param parent parent of the viewgroup
          * @return the new view that is to be inflated
          */
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View view, ViewGroup parent) {
+
             RecipeGetters getRecipe = recipes.get(position);
             LayoutInflater inflater = getLayoutInflater();
-            View newView = inflater.inflate(R.layout.recipe_row_layout, parent, false); // why chris used old view?
-            TextView rowText = newView.findViewById(R.id.recipeTextRow);
-            rowText.setText(getRecipe.getTitle());//Is a loop needed to populate all rows?
+            if(view==null) view = inflater.inflate(R.layout.recipe_row_layout, parent, false);
+            TextView rowText = view.findViewById(R.id.recipeTextRow);
+            rowText.setText(getRecipe.getTitle());
 
-            return newView;
+            return view;
         }
     }
 
@@ -223,7 +224,7 @@ public class RecipeSearchPage extends AppCompatActivity {
             String href = null;
             String ingredients = null;
             try {
-                String encode = URLEncoder.encode(strings[0], "UTF-8"); //fix
+                String encode = strings[0] + URLEncoder.encode(strings[1], "UTF-8"); //fix
                 URL url = new URL(encode);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 InputStream response = urlConnection.getInputStream();
