@@ -43,6 +43,13 @@
             myAdapter = new MyListAdapter();
             myList.setAdapter(myAdapter);
 
+             countryDisp = findViewById(R.id.country);
+             countryCodeDisp = findViewById(R.id.conCode);
+             provinceDisp = findViewById(R.id.province);
+             casesDisp = findViewById(R.id.cases);
+             statusDisp = findViewById(R.id.status);
+             progressBar =  findViewById(R.id.progressBar);
+
             searchText = findViewById(R.id.searchText);
             searchButton = findViewById(R.id.magnify);
             searchButton.setOnClickListener( (click) ->
@@ -94,13 +101,6 @@ private  class CovidRequest extends AsyncTask< String, Integer, String> {
 
     @Override
     public String doInBackground(String... args) {
-
-        TextView countryDisp = findViewById(R.id.country);
-        TextView countryCodeDisp = findViewById(R.id.conCode);
-        TextView provinceDisp = findViewById(R.id.province);
-        TextView casesDisp = findViewById(R.id.cases);
-        TextView statusDisp = findViewById(R.id.status);
-        progressBar =  findViewById(R.id.progressBar);
 
            try {
             //create a URL object of what server to contact:
@@ -161,7 +161,6 @@ private  class CovidRequest extends AsyncTask< String, Integer, String> {
 
     //Type3
     protected void onPostExecute(String fromDoInBackground) {
-
 
   }
   }
