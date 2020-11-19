@@ -32,7 +32,7 @@
     <string name="startDate">Start Date</string>
     <string name="minPrice">Minimum Price</string>
     <string name="maxPrice">Maximum Price</string>
-    <string name="url"><a href="@string/urlLink">OPEN EVENT IN BROWSER</a></string>
+    <string name="url"><a href="%1$s">OPEN EVENT IN BROWSER</a></string>
     <string name="urlTitle">Event URL</string>
     <string name="back">BACK</string>
 
