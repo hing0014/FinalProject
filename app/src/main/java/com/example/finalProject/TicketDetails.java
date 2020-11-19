@@ -1,16 +1,14 @@
 package com.example.finalProject;
 
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
-import android.util.Base64;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 /**
  * Shows the values of the selected event.
  *  <p>
@@ -72,7 +70,7 @@ public class TicketDetails extends AppCompatActivity
         urlv.setText(eventUrl);
         urlv.setMovementMethod(LinkMovementMethod.getInstance());
 
-        Button back = (Button)findViewById(R.id.back);
+        Button back = findViewById(R.id.back);
         back.setOnClickListener( clk -> onBackPressed());
     }
 }
