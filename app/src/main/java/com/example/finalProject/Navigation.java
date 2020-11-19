@@ -8,10 +8,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.finalProject.R;
+import com.example.androidlabs.R;
 
 public class Navigation extends AppCompatActivity
 {

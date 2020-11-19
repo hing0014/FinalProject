@@ -4,7 +4,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.finalProject.R;
+import com.example.androidlabs.R;
+
 
 public class Recipes  extends AppCompatActivity {
 
