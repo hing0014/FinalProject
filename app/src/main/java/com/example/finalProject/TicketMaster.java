@@ -1,7 +1,6 @@
 package com.example.finalProject;
 
 import android.annotation.SuppressLint;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.URLUtil;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,11 +26,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.androidlabs.R;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.xmlpull.v1.XmlPullParser;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -43,7 +38,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 /**
