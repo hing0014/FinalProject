@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".RecipeSearchPage">
 
-
     <EditText
         android:id="@+id/searchRecipe"
         android:layout_width="322dp"
