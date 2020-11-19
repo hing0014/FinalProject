@@ -1,16 +1,12 @@
 package com.example.finalProject;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.Spinner;
-import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.androidlabs.R;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Navigation extends AppCompatActivity
 {
