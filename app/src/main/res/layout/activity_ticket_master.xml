@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/layout"
+        tools:ignore="UseSwitchCompatOrMaterialXml">
+
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_toStartOf="@+id/searchButton"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/city_search"
+            android:id="@+id/citySearch"
+            android:textSize="30sp"
+            android:autofillHints="Enter City"
+            android:inputType="text"
+            tools:ignore="LabelFor" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_below="@id/citySearch"
+            android:layout_toStartOf="@+id/searchButton"
+            android:layout_alignParentStart="true"
+            android:text="@string/radius_search"
+            android:id="@+id/radius"
+            android:textSize="30sp"
+            android:autofillHints="Enter Radius"
+            android:inputType="text"
+            tools:ignore="LabelFor" />
+
+        <Button
+            android:id="@+id/searchButton"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="true"
+            android:text="@string/SearchButtonText"
+            android:layout_alignParentEnd="true"
+            />
+        <ListView
+            android:id="@+id/theListView"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_above="@+id/loadBar"
+            android:layout_below="@+id/searchButton"
+            />
+
+        <ProgressBar
+            android:id="@+id/loadBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_alignParentBottom="true"
+            />
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
