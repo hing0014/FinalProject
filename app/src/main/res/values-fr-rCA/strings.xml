@@ -5,7 +5,6 @@
     <string name="AudioNavButton">Base de données audio</string>
     <string name="RecipeNavButton">Recette</string>
     <string name="TicketMasterNavButton">TicketMaster</string>
-    <string name="EmptyNavButton">Bouton de navigation vide</string>
     <string name="searchText">La recherche..</string>
     <string name="searchText1">recherche..</string>
     <string name="country">Les pays:</string>
@@ -13,10 +12,16 @@
     <string name="province">La province:</string>
     <string name="cases">Le cas:</string>
     <string name="status">Le statut:</string>
-    <string name="city_search" >Recherche par ville</string>
+    <string name="city_search" >Ville:</string>
     <string name="SearchButtonText">Chercher</string>
     <string name="HomeNavButton">Accueil</string>
     <string name="radius_search">Rayon</string>
     <string name="event_name">Nom de l\'événement</string>
     <string name="eventIcon">" Icône d'événement"</string>
+    <string name="city">Ville</string>
+    <string name="startDate">Date de début</string>
+    <string name="minPrice">Prix minimum More</string>
+    <string name="maxPrice">Prix maximum</string>
+    <string name="url">URL de l\'événement</string>
+    <string name="back">RETOUR</string>
 </resources>

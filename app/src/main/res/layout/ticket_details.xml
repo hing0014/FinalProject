@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/eventImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/eventIcon"
+            android:src="@drawable/cimage"
+            android:layout_alignParentStart="true"/>
+
+        <TextView
+            android:id="@+id/city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/city"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:height="56dp"
+            android:layout_below="@+id/eventImage"/>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/event_name"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:height="56dp"
+            android:layout_below="@+id/city"/>
+
+        <TextView
+            android:id="@+id/startDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/startDate"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:height="56dp"
+            android:layout_below="@+id/name"/>
+
+        <TextView
+            android:id="@+id/ticketPriceMin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/minPrice"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:height="56dp"
+            android:layout_below="@+id/startDate"/>
+
+        <TextView
+            android:id="@+id/ticketPriceMax"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/maxPrice"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:height="56dp"
+            android:layout_below="@+id/ticketPriceMin"/>
+
+        <TextView
+            android:id="@+id/url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/url"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:height="56dp"
+            android:layout_below="@+id/ticketPriceMax"/>
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/back"
+            android:layout_alignParentBottom="true"
+            />
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
