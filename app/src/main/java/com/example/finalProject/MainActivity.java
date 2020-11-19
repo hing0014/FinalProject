@@ -4,10 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.finalProject.R;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -42,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         Button audio = (Button) findViewById(R.id.audioData);
         audio.setOnClickListener( (clicker) ->
         {
-            Intent audioActivity = new Intent(MainActivity.this, Audio.class);
+            Intent audioActivity = new Intent(MainActivity.this, AudioActivity.class);
             startActivity(audioActivity);
         });
     }

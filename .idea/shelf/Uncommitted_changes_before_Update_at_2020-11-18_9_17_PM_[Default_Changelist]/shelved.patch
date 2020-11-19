@@ -1,0 +1,121 @@
+Index: app/src/main/java/com/example/finalProject/AudioListFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.finalProject;\r\n\r\nimport android.content.Context;\r\nimport android.os.Bundle;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.ArrayAdapter;\r\nimport android.widget.ListView;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.annotation.Nullable;\r\nimport androidx.fragment.app.Fragment;\r\n\r\nimport com.example.androidlabs.R;\r\n\r\nimport java.util.ArrayList;\r\n\r\npublic class AudioListFragment extends Fragment {\r\n\r\n    private ListView lv;\r\n    private ArrayAdapter<String> adapter;\r\n    private ArrayList<Album> albums;\r\n\r\n    private AudioActivity activity;\r\n\r\n    @Override\r\n    public void onAttach(@NonNull Context context) {\r\n        super.onAttach(context);\r\n        activity = (AudioActivity) context;\r\n    }\r\n\r\n    @Nullable\r\n    @Override\r\n    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {\r\n        return inflater.inflate(R.layout.fragment_audio_list, container, false);\r\n    }\r\n\r\n    @Override\r\n    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {\r\n        super.onViewCreated(view, savedInstanceState);\r\n        findViews(view);\r\n        buildListView();\r\n    }\r\n\r\n    /**\r\n     *\r\n     * @param v\r\n     */\r\n    private void findViews(View v) {\r\n        lv = v.findViewById(R.id.lvAudioList);\r\n    }\r\n\r\n    private void buildListView() {\r\n        ArrayList<String> list = new ArrayList<>();\r\n        adapter = new ArrayAdapter<>(activity, R.layout.row_audio_list, list);\r\n\r\n        lv.setOnItemClickListener((adapterView, view, i, l) -> {\r\n\r\n        });\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/finalProject/AudioListFragment.java	(revision 8ecd75e1a44cba6e63fcd0896fbfebdd4184909e)
++++ app/src/main/java/com/example/finalProject/AudioListFragment.java	(date 1605751682129)
+@@ -12,7 +12,6 @@
+ import androidx.annotation.Nullable;
+ import androidx.fragment.app.Fragment;
+ 
+-import com.example.androidlabs.R;
+ 
+ import java.util.ArrayList;
+ 
+Index: app/src/main/java/com/example/finalProject/AudioActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.finalProject;\r\n\r\nimport android.os.Bundle;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.fragment.app.Fragment;\r\n\r\nimport com.example.androidlabs.R;\r\n\r\npublic class AudioActivity extends AppCompatActivity {\r\n\r\n    private Album album;\r\n\r\n    private Fragment current;\r\n    private AudioSearchFragment searchFragment;\r\n    private AudioListFragment listFragment;\r\n    private AudioItemFragment itemFragment;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_audio);\r\n\r\n        searchFragment = new AudioSearchFragment();\r\n        listFragment = new AudioListFragment();\r\n        itemFragment = new AudioItemFragment();\r\n    }\r\n\r\n    @Override\r\n    public void onBackPressed() {\r\n        back();\r\n    }\r\n\r\n    /**\r\n     *\r\n     * @param fragment\r\n     */\r\n    private void changeFragment(Fragment fragment) {\r\n\r\n        if (!fragment.isAdded()) {\r\n            getSupportFragmentManager().beginTransaction().add(R.id.frAudio, fragment).commit();\r\n        }\r\n\r\n        getSupportFragmentManager().beginTransaction().hide(current).show(fragment).commit();\r\n\r\n        current = fragment;\r\n    }\r\n\r\n    public void openSearch() {\r\n        changeFragment(searchFragment);\r\n    }\r\n\r\n    public void openList() {\r\n        changeFragment(listFragment);\r\n    }\r\n\r\n    public void openItem() {\r\n        changeFragment(itemFragment);\r\n    }\r\n\r\n    public void back() {\r\n        if (current == searchFragment) ;\r\n        else if (current == listFragment) openSearch();\r\n        else if (current == itemFragment) openList();\r\n    }\r\n\r\n    /**\r\n     *\r\n     * @return\r\n     */\r\n    public Album getAlbum() {\r\n        return album;\r\n    }\r\n\r\n    /**\r\n     *\r\n     * @param album\r\n     */\r\n    public void setAlbum(Album album) {\r\n        this.album = album;\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/finalProject/AudioActivity.java	(revision 8ecd75e1a44cba6e63fcd0896fbfebdd4184909e)
++++ app/src/main/java/com/example/finalProject/AudioActivity.java	(date 1605751672342)
+@@ -5,7 +5,6 @@
+ import androidx.appcompat.app.AppCompatActivity;
+ import androidx.fragment.app.Fragment;
+ 
+-import com.example.androidlabs.R;
+ 
+ public class AudioActivity extends AppCompatActivity {
+ 
+Index: app/src/main/java/com/example/finalProject/AudioFavouriteFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.finalProject;\r\n\r\nimport android.content.Context;\r\nimport android.os.Bundle;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.annotation.Nullable;\r\nimport androidx.fragment.app.Fragment;\r\n\r\nimport com.example.androidlabs.R;\r\n\r\npublic class AudioFavouriteFragment extends Fragment {\r\n\r\n    @Override\r\n    public void onAttach(@NonNull Context context) {\r\n        super.onAttach(context);\r\n    }\r\n\r\n    @Nullable\r\n    @Override\r\n    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {\r\n        return inflater.inflate(R.layout.fragment_audio_favourite, container, false);\r\n    }\r\n\r\n    @Override\r\n    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {\r\n        super.onViewCreated(view, savedInstanceState);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/finalProject/AudioFavouriteFragment.java	(revision 8ecd75e1a44cba6e63fcd0896fbfebdd4184909e)
++++ app/src/main/java/com/example/finalProject/AudioFavouriteFragment.java	(date 1605751687231)
+@@ -10,7 +10,6 @@
+ import androidx.annotation.Nullable;
+ import androidx.fragment.app.Fragment;
+ 
+-import com.example.androidlabs.R;
+ 
+ public class AudioFavouriteFragment extends Fragment {
+ 
+Index: app/src/main/java/com/example/finalProject/AudioSearchFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.finalProject;\r\n\r\nimport android.content.Context;\r\nimport android.os.Bundle;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.annotation.Nullable;\r\nimport androidx.fragment.app.Fragment;\r\n\r\nimport com.example.androidlabs.R;\r\n\r\npublic class AudioSearchFragment extends Fragment {\r\n\r\n    AudioActivity activity;\r\n\r\n    @Override\r\n    public void onAttach(@NonNull Context context) {\r\n        super.onAttach(context);\r\n    }\r\n\r\n    @Nullable\r\n    @Override\r\n    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {\r\n        return inflater.inflate(R.layout.fragment_audio_search, container, false);\r\n    }\r\n\r\n    @Override\r\n    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {\r\n        super.onViewCreated(view, savedInstanceState);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/finalProject/AudioSearchFragment.java	(revision 8ecd75e1a44cba6e63fcd0896fbfebdd4184909e)
++++ app/src/main/java/com/example/finalProject/AudioSearchFragment.java	(date 1605751678380)
+@@ -10,7 +10,6 @@
+ import androidx.annotation.Nullable;
+ import androidx.fragment.app.Fragment;
+ 
+-import com.example.androidlabs.R;
+ 
+ public class AudioSearchFragment extends Fragment {
+ 
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:name=\"android.hardware.camera\"\r\n    package=\"com.example.finalProject\"\r\n    android:required=\"false\"\r\n    tools:ignore=\"ImpliedTouchscreenHardware,MissingLeanbackLauncher,MissingLeanbackSupport\">\r\n\r\n    <uses-permission android:name=\"android.permission.INTERNET\" />\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:fullBackupContent=\"true\"\r\n        android:icon=\"@mipmap/custom\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@drawable/magnify\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/AppTheme\"\r\n        android:windowSoftInputMode=\"adjustResize\">\r\n        <activity android:name=\".RecipeSearchPage\"></activity>\r\n        <activity android:name=\".Navigation\" />\r\n        <activity android:name=\".TicketDetails\" />\r\n        <activity android:name=\".Recipes\" />\r\n        <activity android:name=\".Audio\" />\r\n        <activity android:name=\".Covid\" />\r\n        <activity android:name=\".TicketMaster\" /> <!-- <activity android:name=\"com.example.finalProject.MainActivity\" /> -->\r\n        <activity android:name=\".MainActivity\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision 8ecd75e1a44cba6e63fcd0896fbfebdd4184909e)
++++ app/src/main/AndroidManifest.xml	(date 1605751644142)
+@@ -17,7 +17,7 @@
+         android:supportsRtl="true"
+         android:theme="@style/AppTheme"
+         android:windowSoftInputMode="adjustResize">
+-        <activity android:name=".RecipeSearchPage"></activity>
++        <activity android:name=".RecipeSearchPage"/>
+         <activity android:name=".Navigation" />
+         <activity android:name=".TicketDetails" />
+         <activity android:name=".Recipes" />
+Index: app/src/main/java/com/example/finalProject/MainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.finalProject;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.widget.Button;\r\n\r\nimport com.example.finalProject.R;\r\n\r\npublic class MainActivity extends AppCompatActivity {\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState)\r\n    {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_main);\r\n\r\n        Button covid = (Button) findViewById(R.id.covid);\r\n        covid.setOnClickListener( (click) ->\r\n        {\r\n            Intent covidActivity = new Intent(MainActivity.this, Covid.class);\r\n            startActivity(covidActivity);\r\n        });\r\n\r\n        Button ticketMaster = (Button) findViewById(R.id.ticketMaster);\r\n        ticketMaster.setOnClickListener( (clicker) ->\r\n        {\r\n            Intent ticketMasterActivity = new Intent(MainActivity.this, TicketMaster.class);\r\n            startActivity(ticketMasterActivity);\r\n        });\r\n\r\n        Button recipe = (Button) findViewById(R.id.recipe);\r\n        recipe.setOnClickListener( (clicker) ->\r\n        {\r\n            Intent recipeActivity = new Intent(MainActivity.this, TicketMaster.class);\r\n            startActivity(recipeActivity);\r\n        });\r\n\r\n        Button audio = (Button) findViewById(R.id.audioData);\r\n        recipe.setOnClickListener( (clicker) ->\r\n        {\r\n            Intent audioActivity = new Intent(MainActivity.this, Audio.class);\r\n            startActivity(audioActivity);\r\n        });\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/finalProject/MainActivity.java	(revision 8ecd75e1a44cba6e63fcd0896fbfebdd4184909e)
++++ app/src/main/java/com/example/finalProject/MainActivity.java	(date 1605751796540)
+@@ -38,7 +38,7 @@
+         });
+ 
+         Button audio = (Button) findViewById(R.id.audioData);
+-        recipe.setOnClickListener( (clicker) ->
++        audio.setOnClickListener( (clicker) ->
+         {
+             Intent audioActivity = new Intent(MainActivity.this, Audio.class);
+             startActivity(audioActivity);
+Index: app/src/main/res/layout/activity_audio.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\" android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\">\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n\r\n\r\n        android:layout_height=\"match_parent\"\r\n        android:gravity=\"center|top\"\r\n        android:orientation=\"vertical\">\r\n\r\n        <include layout=\"@layout/activity_navigation\" />\r\n\r\n        <TextView\r\n            android:id=\"@+id/textView\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginTop=\"10dp\"\r\n            android:layout_marginBottom=\"10dp\"\r\n            android:text=\"Back\"\r\n            android:textSize=\"24sp\" />\r\n\r\n        <FrameLayout\r\n            android:id=\"@+id/frAudio\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\">\r\n\r\n        </FrameLayout>\r\n\r\n    </LinearLayout>\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_audio.xml	(revision 8ecd75e1a44cba6e63fcd0896fbfebdd4184909e)
++++ app/src/main/res/layout/activity_audio.xml	(date 1605751834499)
+@@ -11,7 +11,6 @@
+         android:gravity="center|top"
+         android:orientation="vertical">
+ 
+-        <include layout="@layout/activity_navigation" />
+ 
+         <TextView
+             android:id="@+id/textView"

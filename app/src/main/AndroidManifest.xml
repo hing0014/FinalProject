@@ -25,11 +25,10 @@ package="com.example.finalProject">
         </intent-filter>
     </activity>
     <activity android:name=".RecipeSearchPage"/>
-    <activity android:name=".Navigation" />
+    <activity android:name=".AudioActivity"/>
     <!--        <activity android:name=".ChatRoomActivity" />-->
     <activity android:name=".TicketDetails" />
     <activity android:name=".Recipes" />
-    <activity android:name=".Audio" />
     <activity android:name=".Covid" />
     <activity android:name=".TicketMaster" />
 
