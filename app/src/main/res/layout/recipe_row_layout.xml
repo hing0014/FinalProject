@@ -19,7 +19,7 @@
         android:layout_column="1"
         android:text="@string/recipeRowText"
         android:id="@+id/recipeTextRow"
-        android:textSize="20dp"
+        android:textSize="20sp"
         />
 
     <!--<Button

@@ -18,7 +18,7 @@ public class Navigation extends AppCompatActivity
     private final Intent goHome = new Intent(Navigation.this, MainActivity.class);
     private final Intent goToCovid = new Intent(Navigation.this, Covid.class);
     private final Intent goToAudio = new Intent(Navigation.this, Audio.class);
-    private final Intent goToRecipes = new Intent(Navigation.this, Recipes.class);
+    private final Intent goToRecipes = new Intent(Navigation.this, RecipeSearchPage.class);
     private final Intent goToTicketMaster = new Intent(Navigation.this, TicketMaster.class);
 
     @Override

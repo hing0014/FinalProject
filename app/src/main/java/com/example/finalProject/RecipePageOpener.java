@@ -5,7 +5,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- *
+ * This class is meant to be a database for the recipes, setting up the structure for the database to be used later
+ * @author Kasia Kuzma
+ * @version 1.0
+ * Course CST2335
+ * Lab Section 021
+ * RecipeSearchPage Class
  */
 public class RecipePageOpener extends SQLiteOpenHelper{
 
@@ -18,7 +23,8 @@ public class RecipePageOpener extends SQLiteOpenHelper{
     public final static String COL_ID = "_id";
 
     /**
-     * @param ctx
+     * Creating a new instance of the database
+     * @param ctx context of the database
      */
     public RecipePageOpener(Context ctx)
     {
@@ -26,7 +32,8 @@ public class RecipePageOpener extends SQLiteOpenHelper{
     }
 
     /**
-     * @param db
+     * Creates the database and sets the attribute types
+     * @param db the database to be created
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -37,9 +44,10 @@ public class RecipePageOpener extends SQLiteOpenHelper{
     }
 
     /**
-     * @param db
-     * @param oldVersion
-     * @param newVersion
+     * triggers if changes are made to the structure of the database, specifically when the version number increases
+     * @param db database in question
+     * @param oldVersion old version number of the database
+     * @param newVersion new version number of the database
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -48,9 +56,10 @@ public class RecipePageOpener extends SQLiteOpenHelper{
     }
 
     /**
-     * @param db
-     * @param oldVersion
-     * @param newVersion
+     * triggers if the version number decreases and downgrades the database structure according to the changes
+     * @param db database in question
+     * @param oldVersion old version of the database
+     * @param newVersion new version of the database, which is less than the old version
      */
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {

@@ -11,21 +11,26 @@ package com.example.finalProject;
  */
 public class RecipeGetters {
 
-    protected String title, hrefURL, ingredients, thumbnailURL;
+    /**
+     * the recipe title, recipe url, and recipe ingredients to be initialized
+     */
+    protected String title, hrefURL, ingredients;
+    /**
+     * the id for each recipe in the database
+     */
     protected long recipeID;
 
     /**
      * creates a new recipe in the database based on the attributes from the given file
-     * @param title
-     * @param hrefURL
-     * @param ingredients
-     * @param recipeID
+     * @param title title of Recipe
+     * @param hrefURL href url of Recipe to open in browser
+     * @param ingredients ingredients of recipe
+     * @param recipeID id of recipe for created database
      */
     public RecipeGetters(String title, String hrefURL, String ingredients, long recipeID){
         this.title = title;
         this.hrefURL = hrefURL;
         this.ingredients = ingredients;
-        this.thumbnailURL = thumbnailURL;
         this.recipeID = recipeID;
     }
 

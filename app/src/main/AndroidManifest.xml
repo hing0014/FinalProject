@@ -19,7 +19,6 @@
         android:windowSoftInputMode="adjustResize">
         <activity android:name=".RecipeSearchPage"></activity>
         <activity android:name=".Navigation" />
-        <activity android:name=".Recipes" />
         <activity android:name=".Audio" />
         <activity android:name=".Covid" />
         <activity android:name=".TicketMaster" /> <!-- <activity android:name="com.example.finalProject.MainActivity" /> -->
