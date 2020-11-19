@@ -12,6 +12,7 @@
         <item>TicketMaster</item>
     </string-array>
     <string name="searchText">Search..</string>
+    <string name="searchText1">Searching..</string>
     <string name="country">Country:</string>
     <string name="conCode">Country Code:</string>
     <string name="province">Province:</string>

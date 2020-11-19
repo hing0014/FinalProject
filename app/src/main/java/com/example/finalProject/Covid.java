@@ -12,6 +12,8 @@
     import android.widget.ListView;
     import android.widget.ProgressBar;
     import android.widget.TextView;
+    import android.widget.Toast;
+
     import com.example.androidlabs.R;
     import org.json.JSONArray;
     import org.json.JSONObject;
@@ -41,20 +43,17 @@
             myAdapter = new MyListAdapter();
             myList.setAdapter(myAdapter);
 
-            countryDisp = findViewById(R.id.country);
-            countryCodeDisp = findViewById(R.id.conCode);
-            provinceDisp = findViewById(R.id.province);
-            casesDisp = findViewById(R.id.cases);
-            statusDisp = findViewById(R.id.status);
-            progressBar =  findViewById(R.id.progressBar);
-
             searchText = findViewById(R.id.searchText);
             searchButton = findViewById(R.id.magnify);
             searchButton.setOnClickListener( (click) ->
             {
                 CovidRequest req = new CovidRequest();
                 req.execute("https://api.covid19api.com/country/CANADA/status/confirmed/live?from=2020-10-14T00:00:00Z&to=2020-10-15T00:00:00Z");
+
+               // Toast.makeText(this, R.string.searchText1, Toast.LENGTH_LONG).show();
             });
+
+
         }
 
             class MyListAdapter extends BaseAdapter {
@@ -91,14 +90,21 @@
                 }
             }
                                                //Type1     Type2   Type3
- class CovidRequest extends AsyncTask< String, Integer, String> {
+private  class CovidRequest extends AsyncTask< String, Integer, String> {
 
     @Override
     public String doInBackground(String... args) {
-         String corona = "";
+
+        TextView countryDisp = findViewById(R.id.country);
+        TextView countryCodeDisp = findViewById(R.id.conCode);
+        TextView provinceDisp = findViewById(R.id.province);
+        TextView casesDisp = findViewById(R.id.cases);
+        TextView statusDisp = findViewById(R.id.status);
+        progressBar =  findViewById(R.id.progressBar);
+
            try {
             //create a URL object of what server to contact:
-           URL url = new URL(corona);
+           URL url = new URL("https://api.covid19api.com/country/CANADA/status/confirmed/live?from=2020-10-14T00:00:00Z&to=2020-10-15T00:00:00Z");
 
            //open the connection
            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -132,17 +138,18 @@
                 cases = covidObject.getDouble("Cases");
                 status = covidObject.getString("Status");
                 //get the double associated with "value"
-                 countryDisp.setText(country);
-//               countryCodeDisp.setText(countryCode);
-//               provinceDisp.setText(province);
-//               casesDisp.setText(String.valueOf(cases));
-//               statusDisp.setText(status);
+
+               countryDisp.setText(country);
+               countryCodeDisp.setText(countryCode);
+               provinceDisp.setText(province);
+               casesDisp.setText(String.valueOf(cases));
+               statusDisp.setText(status);
            }
 
         } catch (Exception e) {
             e.printStackTrace();
        }
-      return corona;
+      return "";
     }
 
     @Override //Type 2
@@ -154,13 +161,9 @@
 
     //Type3
     protected void onPostExecute(String fromDoInBackground) {
-          countryDisp.setText(country);
-//        countryCodeDisp.setText(countryCode);
-//        provinceDisp.setText(province);
-//        casesDisp.setText(String.valueOf(cases));
-//        statusDisp.setText(status);
-//        progressBar.setVisibility(View.VISIBLE);
-     }
+
+
+  }
   }
  }
 
