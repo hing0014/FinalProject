@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
         Button audio = (Button) findViewById(R.id.audioData);
         audio.setOnClickListener( (clicker) ->
-
         {
             Intent audioActivity = new Intent(MainActivity.this, Audio.class);
             startActivity(audioActivity);
