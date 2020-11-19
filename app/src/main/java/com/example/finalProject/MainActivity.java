@@ -36,6 +36,13 @@ public class MainActivity extends AppCompatActivity {
             Intent recipeActivity = new Intent(MainActivity.this, TicketMaster.class);
             startActivity(recipeActivity);
         });
+
+        Button audio = (Button) findViewById(R.id.audioData);
+        recipe.setOnClickListener( (clicker) ->
+        {
+            Intent audioActivity = new Intent(MainActivity.this, Audio.class);
+            startActivity(audioActivity);
+        });
     }
 
 }

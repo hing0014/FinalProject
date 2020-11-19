@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ProjetFinal</string>
+    <string name="app_name">FinalProject</string>
     <string name="CovidNavButton">Covid-19</string>
-    <string name="AudioNavButton">Audio Database</string>
-    <string name="RecipeNavButton">Recipe</string>
+    <string name="AudioNavButton">Base de données audio</string>
+    <string name="RecipeNavButton">Recette</string>
     <string name="TicketMasterNavButton">TicketMaster</string>
-    <string name="city_search" >City:</string>
-    <string name="SearchButtonText">Search</string>
+    <string name="city_search" >Ville:</string>
+    <string name="SearchButtonText">Chercher</string>
     <string name="searchRecipesEdit"></string>
     <string name="recipeIconDesc"></string>
     <string name="favouriteButton"></string>
     <string name="recipeRowText"></string>
-    <string name="HomeNavButton">Home</string>
-    <string name="radius_search">Radius:</string>
-    <string name="event_name">Event Name</string>
-    <string name="eventIcon">Event Icon</string>
-    <string name="city">City</string>
-    <string name="startDate">Start Date</string>
-    <string name="minPrice">Minimum Price</string>
-    <string name="maxPrice">Maximum Price</string>
-    <string name="url">Event URL</string>
-    <string name="back">BACK</string>
+    <string name="HomeNavButton">Accueil</string>
+    <string name="radius_search">Rayon</string>
+    <string name="event_name">Nom de l\'événement</string>
+    <string name="eventIcon">Icône d\'événement</string>
+    <string name="city">"Ville: "</string>
+    <string name="startDate">Date de début</string>
+    <string name="minPrice">Prix minimum More</string>
+    <string name="maxPrice">Prix maximum</string>
+    <string name="url"><a href="@string/urlLink">ÉVÉNEMENT OUVERT DANS LE NAVIGATEUR</a></string>
+    <string name="back">RETOUR</string>
+    <string name="status">Le statut:</string>
+    <string name="cases">Le cas:</string>
+    <string name="province">La province:</string>
+    <string name="conCode">Le code du pays:</string>
+    <string name="country">Les pays:</string>
+    <string name="searchText">La recherche..</string>
+    <string name="urlTitle">URL de l\'événement</string>
 </resources>
