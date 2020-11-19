@@ -5,6 +5,7 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -13,11 +14,12 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/magnify"
         android:supportsRtl="true"
-        android:windowSoftInputMode="adjustResize"
+        android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        android:theme="@style/AppTheme">
+        android:windowSoftInputMode="adjustResize">
+        <activity android:name="com.example.finalProject.CovidOpener"></activity>
         <activity android:name="com.example.finalProject.Covid" />
-          <activity android:name="com.example.finalProject.MainActivity">
+        <activity android:name="com.example.finalProject.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

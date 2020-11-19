@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.androidlabs.R;
+
 /**
  * Shows the values of the selected event.
  *  <p>
