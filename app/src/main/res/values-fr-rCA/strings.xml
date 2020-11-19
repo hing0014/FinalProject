@@ -18,10 +18,11 @@
     <string name="radius_search">Rayon</string>
     <string name="event_name">Nom de l\'événement</string>
     <string name="eventIcon">" Icône d'événement"</string>
-    <string name="city">Ville</string>
+    <string name="city">"Ville: "</string>
     <string name="startDate">Date de début</string>
     <string name="minPrice">Prix minimum More</string>
     <string name="maxPrice">Prix maximum</string>
-    <string name="url">URL de l\'événement</string>
+    <string name="url"><a href="@string/urlLink">ÉVÉNEMENT OUVERT DANS LE NAVIGATEUR</a></string>
     <string name="back">RETOUR</string>
+    <string name="urlTitle">URL de l\'événement</string>
 </resources>

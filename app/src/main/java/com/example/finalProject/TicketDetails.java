@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.util.Base64;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -67,7 +68,9 @@ public class TicketDetails extends AppCompatActivity
         startDatev.setText(startDate);
         ticketPriceMinv.setText(String.valueOf(ticketPriceMin));
         ticketPriceMaxv.setText(String.valueOf(ticketPriceMax));
+
         urlv.setText(eventUrl);
+        urlv.setMovementMethod(LinkMovementMethod.getInstance());
 
         Button back = (Button)findViewById(R.id.back);
         back.setOnClickListener( clk -> onBackPressed());

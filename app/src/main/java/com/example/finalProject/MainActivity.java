@@ -1,12 +1,14 @@
 package com.example.finalProject;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
-import com.example.androidlabs.R;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.finalProject.R;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,8 +35,15 @@ public class MainActivity extends AppCompatActivity {
         Button recipe = (Button) findViewById(R.id.recipe);
         recipe.setOnClickListener( (clicker) ->
         {
-            Intent recipeActivity = new Intent(MainActivity.this, TicketMaster.class);
+            Intent recipeActivity = new Intent(MainActivity.this, Recipes.class);
             startActivity(recipeActivity);
+        });
+
+        Button audio = (Button) findViewById(R.id.audioData);
+        audio.setOnClickListener( (clicker) ->
+        {
+            Intent audioActivity = new Intent(MainActivity.this, Audio.class);
+            startActivity(audioActivity);
         });
     }
 
