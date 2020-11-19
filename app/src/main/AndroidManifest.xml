@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:name="android.hardware.camera"
-    package="com.example.finalProject"
-    android:required="false"
-    tools:ignore="ImpliedTouchscreenHardware,MissingLeanbackLauncher,MissingLeanbackSupport">
+    package="com.example.androidlabs">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
-        android:fullBackupContent="true"
-        android:icon="@mipmap/custom"
+        android:icon="@drawable/flag"
         android:label="@string/app_name"
         android:roundIcon="@drawable/magnify"
         android:supportsRtl="true"
+
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="adjustResize">
         <activity android:name=".RecipeSearchPage"></activity>
@@ -25,6 +24,7 @@
         <activity android:name=".Covid" />
         <activity android:name=".TicketMaster" /> <!-- <activity android:name="com.example.finalProject.MainActivity" /> -->
         <activity android:name=".MainActivity">
+          <activity android:name="com.example.finalProject.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
