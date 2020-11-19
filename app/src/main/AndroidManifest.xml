@@ -28,7 +28,6 @@ package="com.example.finalProject">
     <activity android:name=".AudioActivity"/>
     <!--        <activity android:name=".ChatRoomActivity" />-->
     <activity android:name=".TicketDetails" />
-    <activity android:name=".Recipes" />
     <activity android:name=".Covid" />
     <activity android:name=".TicketMaster" />
 

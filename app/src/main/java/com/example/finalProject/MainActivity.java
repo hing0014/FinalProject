@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         Button recipe = (Button) findViewById(R.id.recipe);
         recipe.setOnClickListener( (clicker) ->
         {
-            Intent recipeActivity = new Intent(MainActivity.this, Recipes.class);
+            Intent recipeActivity = new Intent(MainActivity.this, RecipeSearchPage.class);
             startActivity(recipeActivity);
         });
 
