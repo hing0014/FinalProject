@@ -11,7 +11,6 @@
         android:gravity="center|top"
         android:orientation="vertical">
 
-        <include layout="@layout/activity_navigation" />
 
         <TextView
             android:id="@+id/textView"

@@ -1,28 +1,28 @@
     package com.example.finalProject;
 
-    import androidx.appcompat.app.AppCompatActivity;
     import android.os.AsyncTask;
-    import android.os.Bundle;
-    import android.view.LayoutInflater;
-    import android.view.View;
-    import android.view.ViewGroup;
-    import android.widget.BaseAdapter;
-    import android.widget.EditText;
-    import android.widget.ImageButton;
-    import android.widget.ListView;
-    import android.widget.ProgressBar;
-    import android.widget.TextView;
-    import android.widget.Toast;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
-    import com.example.androidlabs.R;
-    import org.json.JSONArray;
-    import org.json.JSONObject;
-    import java.io.BufferedReader;
-    import java.io.InputStream;
-    import java.io.InputStreamReader;
-    import java.net.HttpURLConnection;
-    import java.net.URL;
-    import java.util.ArrayList;
+import androidx.appcompat.app.AppCompatActivity;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 
     public class Covid extends AppCompatActivity {
         ArrayList<String> list = new ArrayList<>();

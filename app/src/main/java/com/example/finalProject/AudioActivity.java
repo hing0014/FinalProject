@@ -5,7 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.androidlabs.R;
+import com.example.finalProject.R;
 
 public class AudioActivity extends AppCompatActivity {
 
