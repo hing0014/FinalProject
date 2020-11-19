@@ -6,6 +6,7 @@
     <string name="RecipeNavButton">Recette</string>
     <string name="TicketMasterNavButton">TicketMaster</string>
     <string name="searchText">La recherche..</string>
+    <string name="searchText1">recherche..</string>
     <string name="country">Les pays:</string>
     <string name="conCode">Le code du pays:</string>
     <string name="province">La province:</string>
